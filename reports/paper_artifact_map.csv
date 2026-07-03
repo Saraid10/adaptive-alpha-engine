@@ -15,3 +15,8 @@ Venue figure plan,figure plan,models/phase45_figure_plan.csv,"Maps final manuscr
 Venue claim map,claim control,models/phase45_claim_to_section_map.csv,"Pins allowed claims and forbidden extensions to exact manuscript sections."
 Venue requirement audit,venue audit,models/phase45_venue_requirement_audit.csv,"Maps ICAIF/ACM-style submission, template, anonymity, self-contained paper, and artifact-archive constraints to Phase 45/46 actions."
 External research audit,venue audit,reports/phase45_external_research_audit.md,"Summarizes primary-source venue research and reviewer-facing Phase 45 hardening decisions."
+Final submission manuscript,manuscript source,paper/phase46_submission_manuscript.md,"Provides the final anonymous self-contained manuscript source for final formatting."
+ACM skeleton,LaTeX skeleton,paper/phase46_acm_sigconf_skeleton.tex,"Provides the anonymous ACM sigconf review skeleton for final paper conversion."
+Final completion package,completion audit,reports/phase46_final_research_completion.md,"Marks the repository evidence package research-complete while preserving no-tradable-alpha and no-same-holdout-rescue boundaries."
+Submission gate,submission audit,models/phase46_submission_gate_matrix.csv,"Records final pass/conditional/not-yet gates before external blind submission."
+Reviewer response pack,reviewer response,reports/phase46_reviewer_response_pack.md,"Prepares concise reviewer-facing responses to likely objections without overclaiming."

@@ -181,7 +181,9 @@ Phase 44 is represented by `paper/main.md`, `reports/phase44_paper_readiness_pac
 
 Phase 45 is represented by `paper/phase45_venue_ready_manuscript.md`, `reports/phase45_venue_manuscript_package.md`, `reports/phase45_external_research_audit.md`, `reports/phase45_reproducibility_appendix.md`, `reports/phase45_submission_checklist.md`, `models/phase45_table_plan.csv`, `models/phase45_figure_plan.csv`, `models/phase45_claim_to_section_map.csv`, and `models/phase45_venue_requirement_audit.csv`.
 
-The next default step is final LaTeX/PDF formatting, current venue-rule verification, citation cleanup, figure drawing, anonymity audit, artifact archive/DOI decision, and advisor/reviewer feedback, not broad experiment expansion.
+Phase 46 is represented by `paper/phase46_submission_manuscript.md`, `paper/phase46_acm_sigconf_skeleton.tex`, `reports/phase46_final_research_completion.md`, `reports/phase46_submission_readiness_audit.md`, `reports/phase46_anonymity_audit.md`, `reports/phase46_reviewer_response_pack.md`, `reports/phase46_final_submission_todo.md`, `models/phase46_section_budget.csv`, `models/phase46_submission_gate_matrix.csv`, `models/phase46_anonymity_audit.csv`, `models/phase46_final_claim_audit.csv`, and `models/phase46_reviewer_objection_matrix.csv`.
+
+The repository evidence package is now research-complete. The next default step is human-facing submission production: final LaTeX/PDF formatting, current venue-rule verification, citation cleanup, figure drawing, anonymity audit, artifact archive/DOI decision, and advisor/reviewer feedback, not broad experiment expansion.
 
 Reviewer-facing caveats must stay explicit in the paper draft:
 
@@ -208,5 +210,9 @@ Phase 45 converts the Phase 44 evidence into a venue-facing manuscript package. 
 
 The Phase 45 external audit adds conservative ICAIF/ACM-style constraints: compact self-contained paper, double-blind anonymity, official `acmart`/`sigconf` formatting unless the current venue overrides it, and no artifact-availability claim before a persistent archive or DOI exists.
 
-The next phase should focus on final formatting, current venue rule re-check, citations, figure/table cleanup, anonymity audit, artifact archive/DOI decision, and reviewer feedback. It should not run new model search unless a new pre-registered external dataset or replication protocol is created first.
+## Phase 46 Final Research Completion Update
+
+Phase 46 closes the repository-side research package. It creates a final submission manuscript source, ACM skeleton, eight-page section budget, anonymity audit, reviewer objection pack, submission gate, and final TODO list. It records that the package is not ready for blind external submission until the compiled PDF, citations, figures, metadata/anonymity audit, and artifact DOI/archive decision are finished.
+
+Future work should focus on final formatting, current venue rule re-check, citations, figure/table cleanup, anonymity audit, artifact archive/DOI decision, and reviewer feedback. It should not run new model search unless a new pre-registered external dataset or replication protocol is created first.
 

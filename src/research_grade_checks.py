@@ -1292,6 +1292,174 @@ def check_phase45_venue_manuscript_package(results: list[CheckResult]) -> None:
         )
 
 
+def check_phase46_final_research_completion(results: list[CheckResult]) -> None:
+    models = BASE_DIR / "models"
+    runner_path = BASE_DIR / "src" / "phase46_final_research_completion.py"
+    test_path = BASE_DIR / "tests" / "test_phase46_final_research_completion.py"
+    ps1_path = BASE_DIR / "run_phase46_final_research_completion.ps1"
+    sh_path = BASE_DIR / "run_phase46_final_research_completion.sh"
+    submission_manuscript_path = BASE_DIR / "paper" / "phase46_submission_manuscript.md"
+    acm_skeleton_path = BASE_DIR / "paper" / "phase46_acm_sigconf_skeleton.tex"
+    final_report_path = BASE_DIR / "reports" / "phase46_final_research_completion.md"
+    submission_audit_path = BASE_DIR / "reports" / "phase46_submission_readiness_audit.md"
+    anonymity_report_path = BASE_DIR / "reports" / "phase46_anonymity_audit.md"
+    reviewer_pack_path = BASE_DIR / "reports" / "phase46_reviewer_response_pack.md"
+    final_todo_path = BASE_DIR / "reports" / "phase46_final_submission_todo.md"
+    section_budget_path = models / "phase46_section_budget.csv"
+    gate_matrix_path = models / "phase46_submission_gate_matrix.csv"
+    anonymity_audit_path = models / "phase46_anonymity_audit.csv"
+    claim_audit_path = models / "phase46_final_claim_audit.csv"
+    objection_matrix_path = models / "phase46_reviewer_objection_matrix.csv"
+
+    for path, check in [
+        (runner_path, "phase46_runner_exists"),
+        (test_path, "phase46_tests_exist"),
+        (ps1_path, "phase46_runner_ps1_exists"),
+        (sh_path, "phase46_runner_sh_exists"),
+        (submission_manuscript_path, "phase46_submission_manuscript_exists"),
+        (acm_skeleton_path, "phase46_acm_skeleton_exists"),
+        (final_report_path, "phase46_final_report_exists"),
+        (submission_audit_path, "phase46_submission_audit_exists"),
+        (anonymity_report_path, "phase46_anonymity_report_exists"),
+        (reviewer_pack_path, "phase46_reviewer_pack_exists"),
+        (final_todo_path, "phase46_final_todo_exists"),
+    ]:
+        require_file(results, path, check)
+
+    section_budget = read_csv_checked(results, section_budget_path, "phase46_section_budget")
+    gate_matrix = read_csv_checked(results, gate_matrix_path, "phase46_submission_gate_matrix")
+    anonymity_audit = read_csv_checked(results, anonymity_audit_path, "phase46_anonymity_audit")
+    claim_audit = read_csv_checked(results, claim_audit_path, "phase46_final_claim_audit")
+    objection_matrix = read_csv_checked(results, objection_matrix_path, "phase46_reviewer_objection_matrix")
+
+    if section_budget is not None:
+        total_budget = pd.to_numeric(section_budget.get("page_budget", pd.Series(dtype=float)), errors="coerce").sum()
+        sections = set(section_budget.get("section", pd.Series(dtype=str)).astype(str))
+        required_sections = {"Abstract", "Introduction", "Results", "Discussion and Limitations", "References"}
+        add(
+            results,
+            "phase46_section_budget_guardrails",
+            PASS if total_budget <= 8.0 and required_sections.issubset(sections) else FAIL,
+            f"total_budget={total_budget}; sections={sorted(sections)}",
+        )
+
+    if gate_matrix is not None:
+        gate_map = gate_matrix.set_index("gate")["status"].astype(str).to_dict() if {"gate", "status"}.issubset(gate_matrix.columns) else {}
+        ok = (
+            gate_map.get("locked_holdout_integrity") == "pass"
+            and gate_map.get("artifact_availability") == "not_claimed"
+            and gate_map.get("final_submission") == "not_yet"
+            and gate_map.get("claim_control") == "pass"
+        )
+        add(
+            results,
+            "phase46_submission_gate_guardrails",
+            PASS if ok else FAIL,
+            f"gates={gate_map}",
+        )
+
+    if anonymity_audit is not None:
+        statuses = set(anonymity_audit.get("status", pd.Series(dtype=str)).astype(str))
+        required_checks = {"author_block", "github_link", "personal_name_saransh", "codex_marker"}
+        checks = set(anonymity_audit.get("check_id", pd.Series(dtype=str)).astype(str))
+        add(
+            results,
+            "phase46_anonymity_audit_guardrails",
+            PASS if statuses.issubset({"pass", "review_required"}) and required_checks.issubset(checks) else FAIL,
+            f"statuses={sorted(statuses)}; checks={sorted(checks)}",
+        )
+
+    if claim_audit is not None:
+        text = " ".join(claim_audit.astype(str).agg(" ".join, axis=1).tolist())
+        missing = [
+            phrase
+            for phrase in [
+                "Positive tradable alpha is not supported",
+                "same locked holdout cannot be reused",
+                "Claim ACM artifact availability before a DOI",
+                "The strategy is profitable or deployable",
+            ]
+            if phrase not in text
+        ]
+        add(
+            results,
+            "phase46_claim_audit_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 46 final claim audit blocks overclaims",
+        )
+
+    if objection_matrix is not None:
+        text = " ".join(objection_matrix.astype(str).agg(" ".join, axis=1).tolist())
+        missing = [
+            phrase
+            for phrase in [
+                "Why publish if the strategy is not profitable?",
+                "Why not report the higher-IC guided-GMM",
+                "Can reviewers reproduce the result?",
+            ]
+            if phrase not in text
+        ]
+        add(
+            results,
+            "phase46_reviewer_objection_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 46 reviewer objection pack covers core risks",
+        )
+
+    required_text = {
+        submission_manuscript_path: [
+            "anonymous, self-contained manuscript source",
+            "does not claim a tradable strategy",
+            "limited locked relative support",
+        ],
+        acm_skeleton_path: [
+            r"\documentclass[sigconf,anonymous,review]{acmart}",
+            "does not claim a tradable strategy",
+            "No same-holdout rescue",
+        ],
+        final_report_path: [
+            "Phase 46 completes the research project",
+            "does not tune models",
+            "limited locked relative support",
+            "not support a profitable or deployable trading strategy",
+        ],
+        submission_audit_path: [
+            "not ready for blind external submission",
+            "final PDF is measured",
+            "anonymity audit",
+        ],
+        anonymity_report_path: [
+            "compiled PDF and metadata",
+            "double-blind submission",
+        ],
+        reviewer_pack_path: [
+            "Why publish if the strategy is not profitable?",
+            "Why not report the higher-IC guided-GMM",
+        ],
+        final_todo_path: [
+            "Do not reuse the same locked holdout for model rescue",
+            "Create a Zenodo/OSF/Figshare/institutional archive",
+            "Run an anonymity audit",
+        ],
+        BASE_DIR / "README.md": [
+            "## Phase 46 Final Research Completion Package",
+            "not a new model experiment",
+            "not ready for blind external submission",
+        ],
+    }
+    for path, phrases in required_text.items():
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [phrase for phrase in phrases if phrase not in text]
+        add(
+            results,
+            f"{path.stem}_phase46_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 46 completion wording present",
+        )
+
+
 def check_classical_artifacts(results: list[CheckResult]) -> None:
     models = BASE_DIR / "models"
     summary = read_csv_checked(
@@ -1383,6 +1551,16 @@ def check_claim_control_docs(results: list[CheckResult]) -> None:
             "not a profitability paper",
             "Do not reuse the same locked holdout for model rescue",
         ],
+        BASE_DIR / "reports" / "phase46_final_research_completion.md": [
+            "does not tune models",
+            "limited locked relative support",
+            "not support a profitable or deployable trading strategy",
+        ],
+        BASE_DIR / "paper" / "phase46_submission_manuscript.md": [
+            "does not claim a tradable strategy",
+            "limited locked relative support",
+            "same locked holdout cannot be reused",
+        ],
         BASE_DIR / "paper" / "main.md": [
             "Phase 44 paper-readiness draft",
             "the paper does not claim a tradable strategy",
@@ -1460,6 +1638,7 @@ def main() -> int:
     check_phase43b_locked_eval_artifacts(results)
     check_phase44_paper_package(results)
     check_phase45_venue_manuscript_package(results)
+    check_phase46_final_research_completion(results)
     check_checkpoint_run(
         results,
         "phase39r_neural_full_v1",

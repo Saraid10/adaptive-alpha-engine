@@ -1,6 +1,6 @@
 # Research Grade Check Report
 
-- Checks: 250
+- Checks: 285
 - Failures: 0
 - Warnings: 0
 
@@ -188,7 +188,7 @@
 | phase44_submission_risk_register_exists | PASS | models\phase44_submission_risk_register.csv |
 | phase44_submission_risk_register_readable | PASS | rows=6 columns=4 |
 | phase44_paper_artifact_map_exists | PASS | reports\paper_artifact_map.csv |
-| phase44_paper_artifact_map_readable | PASS | rows=16 columns=4 |
+| phase44_paper_artifact_map_readable | PASS | rows=21 columns=4 |
 | phase44_evidence_matrix_guardrails | PASS | blocks=['development_statistical_adjudication', 'execution_and_mechanism_diagnostics', 'locked_external_holdout', 'repaired_crypto20_development', 'validation_repair']; data_roles=['development_observed', 'locked_registered_unobserved'] |
 | phase44_risk_register_guardrails | PASS | Phase 44 risk register covers critical paper risks |
 | phase44_artifact_map_guardrails | PASS | missing_cols=[]; missing_phrases=[] |
@@ -226,6 +226,40 @@
 | phase45_submission_checklist_phase45_guardrails | PASS | Phase 45 claim-control wording present |
 | phase45_external_research_audit_phase45_guardrails | PASS | Phase 45 claim-control wording present |
 | README_phase45_guardrails | PASS | Phase 45 claim-control wording present |
+| phase46_runner_exists | PASS | src\phase46_final_research_completion.py |
+| phase46_tests_exist | PASS | tests\test_phase46_final_research_completion.py |
+| phase46_runner_ps1_exists | PASS | run_phase46_final_research_completion.ps1 |
+| phase46_runner_sh_exists | PASS | run_phase46_final_research_completion.sh |
+| phase46_submission_manuscript_exists | PASS | paper\phase46_submission_manuscript.md |
+| phase46_acm_skeleton_exists | PASS | paper\phase46_acm_sigconf_skeleton.tex |
+| phase46_final_report_exists | PASS | reports\phase46_final_research_completion.md |
+| phase46_submission_audit_exists | PASS | reports\phase46_submission_readiness_audit.md |
+| phase46_anonymity_report_exists | PASS | reports\phase46_anonymity_audit.md |
+| phase46_reviewer_pack_exists | PASS | reports\phase46_reviewer_response_pack.md |
+| phase46_final_todo_exists | PASS | reports\phase46_final_submission_todo.md |
+| phase46_section_budget_exists | PASS | models\phase46_section_budget.csv |
+| phase46_section_budget_readable | PASS | rows=9 columns=3 |
+| phase46_submission_gate_matrix_exists | PASS | models\phase46_submission_gate_matrix.csv |
+| phase46_submission_gate_matrix_readable | PASS | rows=10 columns=3 |
+| phase46_anonymity_audit_exists | PASS | models\phase46_anonymity_audit.csv |
+| phase46_anonymity_audit_readable | PASS | rows=6 columns=4 |
+| phase46_final_claim_audit_exists | PASS | models\phase46_final_claim_audit.csv |
+| phase46_final_claim_audit_readable | PASS | rows=4 columns=4 |
+| phase46_reviewer_objection_matrix_exists | PASS | models\phase46_reviewer_objection_matrix.csv |
+| phase46_reviewer_objection_matrix_readable | PASS | rows=5 columns=3 |
+| phase46_section_budget_guardrails | PASS | total_budget=8.0; sections=['Abstract', 'Data and Validation', 'Discussion and Limitations', 'Introduction', 'Methods', 'References', 'Related Work', 'Reproducibility', 'Results'] |
+| phase46_submission_gate_guardrails | PASS | gates={'venue_scope': 'pass', 'claim_control': 'pass', 'locked_holdout_integrity': 'pass', 'research_gate': 'pass', 'double_blind': 'conditional_pass', 'page_budget': 'conditional_pass', 'acm_template': 'conditional_pass', 'artifact_functionality': 'pass', 'artifact_availability': 'not_claimed', 'final_submission': 'not_yet'} |
+| phase46_anonymity_audit_guardrails | PASS | statuses=['pass']; checks=['acknowledgements', 'author_block', 'codex_marker', 'github_link', 'institution_marker', 'personal_name_saransh'] |
+| phase46_claim_audit_guardrails | PASS | Phase 46 final claim audit blocks overclaims |
+| phase46_reviewer_objection_guardrails | PASS | Phase 46 reviewer objection pack covers core risks |
+| phase46_submission_manuscript_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_acm_sigconf_skeleton_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_final_research_completion_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_submission_readiness_audit_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_anonymity_audit_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_reviewer_response_pack_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase46_final_submission_todo_phase46_guardrails | PASS | Phase 46 completion wording present |
+| README_phase46_guardrails | PASS | Phase 46 completion wording present |
 | phase39r_neural_full_v1_run_state_exists | PASS | .tmp\phase39_fold_local\phase39r_neural_full_v1\run_state.json |
 | phase39r_neural_full_v1_checkpoint_count | PASS | 16/16 |
 | phase39r_neural_full_v1_checkpoint_methods | PASS | observed=['global_lgbm', 'regime_lgbm_contrastive', 'regime_lgbm_contrastive_hmm', 'regime_lgbm_hmm', 'regime_lgbm_hmm_guided_gmm', 'regime_lgbm_hmm_guided_hmm', 'regime_lgbm_kmeans', 'regime_lgbm_vol_bucket'] |
@@ -251,8 +285,9 @@
 | phase45_venue_ready_manuscript_claim_control | PASS | required claim-control phrases present |
 | phase45_venue_manuscript_package_exists | PASS | reports\phase45_venue_manuscript_package.md |
 | phase45_venue_manuscript_package_claim_control | PASS | required claim-control phrases present |
+| phase46_final_research_completion_exists | PASS | reports\phase46_final_research_completion.md |
+| phase46_final_research_completion_claim_control | PASS | required claim-control phrases present |
+| phase46_submission_manuscript_exists | PASS | paper\phase46_submission_manuscript.md |
+| phase46_submission_manuscript_claim_control | PASS | required claim-control phrases present |
 | main_exists | PASS | paper\main.md |
 | main_claim_control | PASS | required claim-control phrases present |
-| freeze_verify_command | PASS | returncode=0; last_output=OK: crypto20-development-v1 matches its configuration, database, symbol manifest, and fold calendar. |
-| unit_tests_command | PASS | returncode=0; last_output=OK |
-| calendar_audit_command | PASS | returncode=0; last_output=OK: 20 symbols share one calendar index and all 16 folds have strict global train/test separation under crypto20-development-v1. |
