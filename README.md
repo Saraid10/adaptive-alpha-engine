@@ -1091,9 +1091,43 @@ Core artifacts:
 - `models/phase45_claim_to_section_map.csv`
 - `models/phase45_venue_requirement_audit.csv`
 
+## Phase 46 Final Research Completion Package
+
+Phase 46 is the final research-completion layer. It is not a new model experiment and does not rerun, tune, or reinterpret locked/final evaluation data.
+
+Phase 46 adds:
+
+- a compact eight-page section budget for the final paper;
+- an anonymous ACM `sigconf` LaTeX skeleton;
+- a final submission manuscript source;
+- a submission gate matrix;
+- an anonymity audit;
+- a final claim audit;
+- a reviewer objection/response pack;
+- a final submission TODO list.
+
+The Phase 46 status is deliberately precise:
+
+> The repository evidence package is research-complete and ready for final paper formatting. It is not ready for blind external submission until the final PDF is compiled, page length is measured, citations and figures are finalized, an anonymity audit is run on the PDF/metadata, and an artifact DOI/archive decision is made.
+
+Core artifacts:
+
+- `paper/phase46_submission_manuscript.md`
+- `paper/phase46_acm_sigconf_skeleton.tex`
+- `reports/phase46_final_research_completion.md`
+- `reports/phase46_submission_readiness_audit.md`
+- `reports/phase46_anonymity_audit.md`
+- `reports/phase46_reviewer_response_pack.md`
+- `reports/phase46_final_submission_todo.md`
+- `models/phase46_section_budget.csv`
+- `models/phase46_submission_gate_matrix.csv`
+- `models/phase46_anonymity_audit.csv`
+- `models/phase46_final_claim_audit.csv`
+- `models/phase46_reviewer_objection_matrix.csv`
+
 ## Current Status
 
-The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. The research-grade regression gate passes.
+The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. Phase 46 marks the repository evidence package research-complete and creates the final paper-formatting, anonymity, reviewer-response, and submission-gate package. It remains not ready for blind external submission until the final PDF, citations, figures, anonymity audit, and artifact archive/DOI decision are complete. The research-grade regression gate passes.
 
 Use the frozen-universe calendar audit command, not the bare default command:
 

@@ -28,6 +28,132 @@ def first_existing_column(df: pd.DataFrame, candidates: list[str]) -> str | None
     return None
 
 
+def format_float(value: object, digits: int = 4, percent: bool = False) -> str:
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "missing"
+    if pd.isna(numeric):
+        return "missing"
+    if percent:
+        return f"{numeric:.1%}"
+    return f"{numeric:.{digits}f}"
+
+
+def count_status(df: pd.DataFrame, status_column: str, status: str) -> int:
+    if df.empty or status_column not in df.columns:
+        return 0
+    return int((df[status_column].astype(str).str.lower() == status.lower()).sum())
+
+
+def render_current_research_status(
+    st,
+    phase43b_claims: pd.DataFrame,
+    phase43b_primary_comparison: pd.DataFrame,
+    phase43b_experiment_results: pd.DataFrame,
+    phase46_submission_gates: pd.DataFrame,
+    phase46_claim_audit: pd.DataFrame,
+    research_grade_report: pd.DataFrame,
+) -> None:
+    st.header("Current Research Status: Phase 46")
+    st.caption(
+        "Paper-facing summary of the repaired validation path, the one-shot locked "
+        "external holdout, and the final submission gate package."
+    )
+    st.warning(
+        "Important: older dashboard panels below are retained as audit history. "
+        "The current paper claim must come from Phase 43B/46 artifacts, not from "
+        "the invalidated early positive-looking experiments."
+    )
+
+    if phase43b_claims.empty or phase43b_primary_comparison.empty:
+        st.info(
+            "Run the Phase 43B locked external evaluation and Phase 46 completion "
+            "package to populate the current research summary."
+        )
+        return
+
+    global_reference = phase43b_primary_comparison[
+        phase43b_primary_comparison["reference_method"] == "global_lgbm"
+    ]
+    hmm_reference = phase43b_primary_comparison[
+        phase43b_primary_comparison["reference_method"] == "regime_lgbm_hmm"
+    ]
+    primary_row = (
+        global_reference.iloc[0]
+        if not global_reference.empty
+        else phase43b_primary_comparison.iloc[0]
+    )
+    candidate = str(primary_row.get("final_candidate", "missing"))
+
+    candidate_rows = phase43b_experiment_results[
+        phase43b_experiment_results["method"] == candidate
+    ] if "method" in phase43b_experiment_results.columns else pd.DataFrame()
+    candidate_row = candidate_rows.iloc[0] if not candidate_rows.empty else primary_row
+
+    st.info(
+        "Current safe claim: the frozen guided-HMM candidate satisfies the "
+        "prewritten locked relative IC/Sharpe rule versus the two primary references. "
+        "It does not support a profitable or deployable trading strategy."
+    )
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Frozen candidate", candidate)
+    c2.metric(
+        "Δ mean asset IC vs global",
+        format_float(primary_row.get("delta_mean_asset_IC"), digits=4),
+    )
+    c3.metric("Locked Sharpe", format_float(candidate_row.get("Sharpe"), digits=3))
+    c4.metric(
+        "Locked total return",
+        format_float(candidate_row.get("total_return"), percent=True),
+    )
+
+    if not hmm_reference.empty:
+        h1, h2, h3 = st.columns(3)
+        hmm_row = hmm_reference.iloc[0]
+        h1.metric(
+            "Δ mean asset IC vs raw HMM",
+            format_float(hmm_row.get("delta_mean_asset_IC"), digits=4),
+        )
+        h2.metric(
+            "Δ Sharpe vs raw HMM",
+            format_float(hmm_row.get("delta_Sharpe"), digits=3),
+        )
+        h3.metric(
+            "Equal locked coverage",
+            str(bool(hmm_row.get("coverage_equal", False))),
+        )
+
+    st.subheader("Phase 43B Locked Claims")
+    st.dataframe(phase43b_claims, width="stretch")
+
+    if not phase46_submission_gates.empty:
+        st.subheader("Phase 46 Submission Gates")
+        passed = count_status(phase46_submission_gates, "status", "pass")
+        conditional = count_status(phase46_submission_gates, "status", "conditional_pass")
+        failed = count_status(phase46_submission_gates, "status", "fail")
+        g1, g2, g3 = st.columns(3)
+        g1.metric("Passed Gates", passed)
+        g2.metric("Conditional Gates", conditional)
+        g3.metric("Failed Gates", failed)
+        st.dataframe(phase46_submission_gates, width="stretch")
+
+    if not phase46_claim_audit.empty:
+        st.subheader("Phase 46 Claim Audit")
+        st.dataframe(phase46_claim_audit, width="stretch")
+
+    if not research_grade_report.empty:
+        st.subheader("Research-Grade Regression Gate")
+        pass_count = count_status(research_grade_report, "status", "PASS")
+        fail_count = count_status(research_grade_report, "status", "FAIL")
+        warn_count = count_status(research_grade_report, "status", "WARN")
+        r1, r2, r3 = st.columns(3)
+        r1.metric("PASS", pass_count)
+        r2.metric("WARN", warn_count)
+        r3.metric("FAIL", fail_count)
+
+
 def main() -> None:
     try:
         import streamlit as st
@@ -38,16 +164,21 @@ def main() -> None:
     st.set_page_config(page_title="Adaptive Alpha Lab", layout="wide")
     st.title("Adaptive Alpha Lab")
     st.caption(
-        "Regime-aware quant ML benchmark platform with financial labels, "
-        "baselines, purged validation, and transaction-cost-aware evaluation."
+        "Research-grade regime-aware quant ML benchmark with repaired validation, "
+        "locked external adjudication, claim control, and paper-facing evidence gates."
     )
     st.info(
-        "Phase 20 result: HMM-guided learned regimes with fold-local HMM assignment "
-        "beat the raw-feature Gaussian HMM on point-estimate IC, Sharpe, drawdown, "
-        "and total return for the first time. The edge is promising but not yet "
-        "statistically significant at the fold level."
+        "Current result: Phase 43B/46 supports only a narrow locked relative "
+        "improvement claim for the frozen guided-HMM candidate. Negative locked "
+        "Sharpe and total return block any profitable-strategy claim."
     )
 
+    phase43b_claims = read_csv("phase43b_locked_external_claims.csv")
+    phase43b_primary_comparison = read_csv("phase43b_locked_external_primary_comparison.csv")
+    phase43b_experiment_results = read_csv("phase43b_locked_external_experiment_results.csv")
+    phase46_submission_gates = read_csv("phase46_submission_gate_matrix.csv")
+    phase46_claim_audit = read_csv("phase46_final_claim_audit.csv")
+    research_grade_report = read_csv("research_grade_check_report.csv")
     results = read_csv("experiment_results.csv")
     walkforward_results = read_csv("walkforward_experiment_results.csv")
     walkforward_comparison = read_csv("walkforward_comparison.csv")
@@ -92,6 +223,16 @@ def main() -> None:
     target_quality = read_csv("target_quality.csv")
     run_index = read_repo_csv("runs/run_index.csv")
     literature_matrix = read_repo_csv("reports/literature_matrix.csv")
+
+    render_current_research_status(
+        st,
+        phase43b_claims,
+        phase43b_primary_comparison,
+        phase43b_experiment_results,
+        phase46_submission_gates,
+        phase46_claim_audit,
+        research_grade_report,
+    )
 
     st.header("Experiment Results")
     if results.empty:
