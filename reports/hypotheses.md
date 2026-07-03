@@ -95,6 +95,10 @@ Phase 45 does not introduce a new hypothesis. It packages the current evidence i
 
 Phase 46 does not introduce a new hypothesis. It closes the repository-side research package by creating the final submission manuscript source, ACM skeleton, section budget, anonymity audit, reviewer response pack, final claim audit, and submission gate. H10 remains limited: the frozen guided-HMM candidate receives limited locked relative support, while profitable/tradable alpha remains unsupported. Phase 46 is not an external-submission claim; final PDF formatting, citations, figures, metadata/anonymity audit, and artifact DOI/archive decisions remain before blind submission.
 
+## Phase 47 Submission Build Status Update
+
+Phase 47 does not introduce a new hypothesis. It converts the Phase 46 package into a build-oriented anonymous LaTeX draft, BibTeX reference file, compiled local PDF, table/figure manifests, source anonymity audit, manuscript build audit, and camera-ready gap list. H10 remains unchanged: limited locked relative support is allowed, while profitable/tradable alpha, candidate switching, and same-holdout retuning remain unsupported or forbidden. Phase 47 is not an external-submission claim; venue-template verification, LaTeX/BibTeX warning cleanup, final figure/citation polish, PDF/metadata anonymity audit, artifact archive/DOI decision, and human review remain before blind submission.
+
 ## Claim Language
 
 Use:

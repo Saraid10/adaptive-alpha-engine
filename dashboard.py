@@ -54,15 +54,20 @@ def render_current_research_status(
     phase46_submission_gates: pd.DataFrame,
     phase46_claim_audit: pd.DataFrame,
     research_grade_report: pd.DataFrame,
+    phase47_build_audit: pd.DataFrame | None = None,
+    phase47_anonymity_audit: pd.DataFrame | None = None,
 ) -> None:
-    st.header("Current Research Status: Phase 46")
+    phase47_build_audit = phase47_build_audit if phase47_build_audit is not None else pd.DataFrame()
+    phase47_anonymity_audit = phase47_anonymity_audit if phase47_anonymity_audit is not None else pd.DataFrame()
+
+    st.header("Current Research Status: Phase 47")
     st.caption(
         "Paper-facing summary of the repaired validation path, the one-shot locked "
-        "external holdout, and the final submission gate package."
+        "external holdout, final submission gate package, and manuscript build-readiness layer."
     )
     st.warning(
         "Important: older dashboard panels below are retained as audit history. "
-        "The current paper claim must come from Phase 43B/46 artifacts, not from "
+        "The current paper claim must come from Phase 43B/46/47 artifacts, not from "
         "the invalidated early positive-looking experiments."
     )
 
@@ -143,6 +148,26 @@ def render_current_research_status(
         st.subheader("Phase 46 Claim Audit")
         st.dataframe(phase46_claim_audit, width="stretch")
 
+    if not phase47_build_audit.empty:
+        st.subheader("Phase 47 Manuscript Build Audit")
+        pass_count = count_status(phase47_build_audit, "status", "pass")
+        conditional_count = count_status(phase47_build_audit, "status", "conditional_pass")
+        not_claimed_count = count_status(phase47_build_audit, "status", "not_claimed")
+        b1, b2, b3 = st.columns(3)
+        b1.metric("Build PASS", pass_count)
+        b2.metric("Conditional", conditional_count)
+        b3.metric("Not Claimed", not_claimed_count)
+        st.dataframe(phase47_build_audit, width="stretch")
+
+    if not phase47_anonymity_audit.empty:
+        st.subheader("Phase 47 Source Anonymity Audit")
+        source_pass = count_status(phase47_anonymity_audit, "status", "pass")
+        review_required = count_status(phase47_anonymity_audit, "status", "review_required")
+        a1, a2 = st.columns(2)
+        a1.metric("Source PASS", source_pass)
+        a2.metric("Review Required", review_required)
+        st.dataframe(phase47_anonymity_audit, width="stretch")
+
     if not research_grade_report.empty:
         st.subheader("Research-Grade Regression Gate")
         pass_count = count_status(research_grade_report, "status", "PASS")
@@ -168,9 +193,10 @@ def main() -> None:
         "locked external adjudication, claim control, and paper-facing evidence gates."
     )
     st.info(
-        "Current result: Phase 43B/46 supports only a narrow locked relative "
+        "Current result: Phase 43B/46/47 supports only a narrow locked relative "
         "improvement claim for the frozen guided-HMM candidate. Negative locked "
-        "Sharpe and total return block any profitable-strategy claim."
+        "Sharpe and total return block any profitable-strategy claim; Phase 47 "
+        "adds a build-ready anonymous manuscript source, not a new experiment."
     )
 
     phase43b_claims = read_csv("phase43b_locked_external_claims.csv")
@@ -178,6 +204,8 @@ def main() -> None:
     phase43b_experiment_results = read_csv("phase43b_locked_external_experiment_results.csv")
     phase46_submission_gates = read_csv("phase46_submission_gate_matrix.csv")
     phase46_claim_audit = read_csv("phase46_final_claim_audit.csv")
+    phase47_build_audit = read_csv("phase47_manuscript_build_audit.csv")
+    phase47_anonymity_audit = read_csv("phase47_anonymity_source_audit.csv")
     research_grade_report = read_csv("research_grade_check_report.csv")
     results = read_csv("experiment_results.csv")
     walkforward_results = read_csv("walkforward_experiment_results.csv")
@@ -232,6 +260,8 @@ def main() -> None:
         phase46_submission_gates,
         phase46_claim_audit,
         research_grade_report,
+        phase47_build_audit,
+        phase47_anonymity_audit,
     )
 
     st.header("Experiment Results")

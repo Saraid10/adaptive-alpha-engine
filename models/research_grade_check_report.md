@@ -1,6 +1,6 @@
 # Research Grade Check Report
 
-- Checks: 285
+- Checks: 319
 - Failures: 0
 - Warnings: 0
 
@@ -188,7 +188,7 @@
 | phase44_submission_risk_register_exists | PASS | models\phase44_submission_risk_register.csv |
 | phase44_submission_risk_register_readable | PASS | rows=6 columns=4 |
 | phase44_paper_artifact_map_exists | PASS | reports\paper_artifact_map.csv |
-| phase44_paper_artifact_map_readable | PASS | rows=21 columns=4 |
+| phase44_paper_artifact_map_readable | PASS | rows=27 columns=4 |
 | phase44_evidence_matrix_guardrails | PASS | blocks=['development_statistical_adjudication', 'execution_and_mechanism_diagnostics', 'locked_external_holdout', 'repaired_crypto20_development', 'validation_repair']; data_roles=['development_observed', 'locked_registered_unobserved'] |
 | phase44_risk_register_guardrails | PASS | Phase 44 risk register covers critical paper risks |
 | phase44_artifact_map_guardrails | PASS | missing_cols=[]; missing_phrases=[] |
@@ -260,6 +260,37 @@
 | phase46_reviewer_response_pack_phase46_guardrails | PASS | Phase 46 completion wording present |
 | phase46_final_submission_todo_phase46_guardrails | PASS | Phase 46 completion wording present |
 | README_phase46_guardrails | PASS | Phase 46 completion wording present |
+| phase47_runner_exists | PASS | src\phase47_submission_build.py |
+| phase47_tests_exist | PASS | tests\test_phase47_submission_build.py |
+| phase47_runner_ps1_exists | PASS | run_phase47_submission_build.ps1 |
+| phase47_runner_sh_exists | PASS | run_phase47_submission_build.sh |
+| phase47_submission_draft_exists | PASS | paper\phase47_submission_draft.tex |
+| phase47_references_exists | PASS | paper\phase47_references.bib |
+| phase47_compiled_pdf_exists | PASS | paper\phase47_submission_draft.pdf |
+| phase47_build_report_exists | PASS | reports\phase47_submission_build_report.md |
+| phase47_blind_review_report_exists | PASS | reports\phase47_blind_review_hardening.md |
+| phase47_gap_list_exists | PASS | reports\phase47_camera_ready_gap_list.md |
+| phase47_build_audit_exists | PASS | models\phase47_manuscript_build_audit.csv |
+| phase47_build_audit_readable | PASS | rows=10 columns=3 |
+| phase47_table_manifest_exists | PASS | models\phase47_table_manifest.csv |
+| phase47_table_manifest_readable | PASS | rows=4 columns=6 |
+| phase47_figure_manifest_exists | PASS | models\phase47_figure_manifest.csv |
+| phase47_figure_manifest_readable | PASS | rows=4 columns=5 |
+| phase47_anonymity_audit_exists | PASS | models\phase47_anonymity_source_audit.csv |
+| phase47_anonymity_audit_readable | PASS | rows=6 columns=3 |
+| phase47_reference_manifest_exists | PASS | models\phase47_reference_manifest.csv |
+| phase47_reference_manifest_readable | PASS | rows=8 columns=3 |
+| phase47_build_audit_guardrails | PASS | audit={'anonymous_acm_review_mode': 'pass', 'bibliography_present': 'pass', 'tables_present': 'pass', 'no_profitable_strategy_claim': 'pass', 'same_holdout_rescue_blocked': 'pass', 'source_anonymity': 'pass', 'pdf_compilation': 'pass', 'pdf_page_budget': 'pass', 'pdf_warning_review': 'review_required', 'artifact_archive': 'not_claimed'} |
+| phase47_table_manifest_guardrails | PASS | tables={'T1': 'included_in_phase47_draft', 'T2': 'included_in_phase47_draft', 'T3': 'included_in_phase47_draft', 'T4': 'appendix_or_reviewer_pack'} |
+| phase47_figure_manifest_guardrails | PASS | figures=['F1', 'F2', 'F3', 'F4']; statuses=['needs_final_drawing', 'ready_from_existing_artifacts'] |
+| phase47_anonymity_source_guardrails | PASS | anonymity={'author_block': 'pass', 'acknowledgements': 'pass', 'github_link': 'pass', 'personal_name_saransh': 'pass', 'institution_marker': 'pass', 'tool_marker': 'pass'} |
+| phase47_reference_manifest_guardrails | PASS | refs=['acmart', 'chen2020simclr', 'hamilton1989regime', 'lightgbm2017', 'lopezdeprado2018afml', 'oord2018cpc', 'rabiner1989hmm', 'tsfresh2018'] |
+| phase47_gitignore_curated_csv_guardrails | PASS | Phase 47 curated CSV artifacts are unignored |
+| phase47_submission_draft_phase47_guardrails | PASS | Phase 47 submission-build wording present |
+| phase47_submission_build_report_phase47_guardrails | PASS | Phase 47 submission-build wording present |
+| phase47_blind_review_hardening_phase47_guardrails | PASS | Phase 47 submission-build wording present |
+| phase47_camera_ready_gap_list_phase47_guardrails | PASS | Phase 47 submission-build wording present |
+| README_phase47_guardrails | PASS | Phase 47 submission-build wording present |
 | phase39r_neural_full_v1_run_state_exists | PASS | .tmp\phase39_fold_local\phase39r_neural_full_v1\run_state.json |
 | phase39r_neural_full_v1_checkpoint_count | PASS | 16/16 |
 | phase39r_neural_full_v1_checkpoint_methods | PASS | observed=['global_lgbm', 'regime_lgbm_contrastive', 'regime_lgbm_contrastive_hmm', 'regime_lgbm_hmm', 'regime_lgbm_hmm_guided_gmm', 'regime_lgbm_hmm_guided_hmm', 'regime_lgbm_kmeans', 'regime_lgbm_vol_bucket'] |
@@ -291,3 +322,6 @@
 | phase46_submission_manuscript_claim_control | PASS | required claim-control phrases present |
 | main_exists | PASS | paper\main.md |
 | main_claim_control | PASS | required claim-control phrases present |
+| freeze_verify_command | PASS | returncode=0; last_output=OK: crypto20-development-v1 matches its configuration, database, symbol manifest, and fold calendar. |
+| unit_tests_command | PASS | returncode=0; last_output=OK |
+| calendar_audit_command | PASS | returncode=0; last_output=OK: 20 symbols share one calendar index and all 16 folds have strict global train/test separation under crypto20-development-v1. |

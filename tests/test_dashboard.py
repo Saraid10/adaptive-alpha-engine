@@ -114,7 +114,8 @@ class DashboardTests(unittest.TestCase):
         )
 
         rendered_text = "\n".join(text for _kind, text in fake.messages)
-        self.assertIn("Current Research Status: Phase 46", rendered_text)
+        self.assertIn("Current Research Status: Phase 47", rendered_text)
+        self.assertIn("Phase 43B/46/47 artifacts", rendered_text)
         self.assertIn("profitable or deployable trading strategy", rendered_text)
         self.assertGreaterEqual(fake.tables, 3)
 
