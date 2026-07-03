@@ -1460,6 +1460,176 @@ def check_phase46_final_research_completion(results: list[CheckResult]) -> None:
         )
 
 
+def check_phase47_submission_build(results: list[CheckResult]) -> None:
+    models = BASE_DIR / "models"
+    runner_path = BASE_DIR / "src" / "phase47_submission_build.py"
+    test_path = BASE_DIR / "tests" / "test_phase47_submission_build.py"
+    ps1_path = BASE_DIR / "run_phase47_submission_build.ps1"
+    sh_path = BASE_DIR / "run_phase47_submission_build.sh"
+    draft_path = BASE_DIR / "paper" / "phase47_submission_draft.tex"
+    references_path = BASE_DIR / "paper" / "phase47_references.bib"
+    compiled_pdf_path = BASE_DIR / "paper" / "phase47_submission_draft.pdf"
+    build_report_path = BASE_DIR / "reports" / "phase47_submission_build_report.md"
+    blind_report_path = BASE_DIR / "reports" / "phase47_blind_review_hardening.md"
+    gap_list_path = BASE_DIR / "reports" / "phase47_camera_ready_gap_list.md"
+    build_audit_path = models / "phase47_manuscript_build_audit.csv"
+    table_manifest_path = models / "phase47_table_manifest.csv"
+    figure_manifest_path = models / "phase47_figure_manifest.csv"
+    anonymity_audit_path = models / "phase47_anonymity_source_audit.csv"
+    reference_manifest_path = models / "phase47_reference_manifest.csv"
+    gitignore_path = BASE_DIR / ".gitignore"
+
+    for path, check in [
+        (runner_path, "phase47_runner_exists"),
+        (test_path, "phase47_tests_exist"),
+        (ps1_path, "phase47_runner_ps1_exists"),
+        (sh_path, "phase47_runner_sh_exists"),
+        (draft_path, "phase47_submission_draft_exists"),
+        (references_path, "phase47_references_exists"),
+        (compiled_pdf_path, "phase47_compiled_pdf_exists"),
+        (build_report_path, "phase47_build_report_exists"),
+        (blind_report_path, "phase47_blind_review_report_exists"),
+        (gap_list_path, "phase47_gap_list_exists"),
+    ]:
+        require_file(results, path, check)
+
+    build_audit = read_csv_checked(results, build_audit_path, "phase47_build_audit")
+    table_manifest = read_csv_checked(results, table_manifest_path, "phase47_table_manifest")
+    figure_manifest = read_csv_checked(results, figure_manifest_path, "phase47_figure_manifest")
+    anonymity_audit = read_csv_checked(results, anonymity_audit_path, "phase47_anonymity_audit")
+    reference_manifest = read_csv_checked(results, reference_manifest_path, "phase47_reference_manifest")
+
+    if build_audit is not None:
+        audit_map = build_audit.set_index("check_id")["status"].astype(str).to_dict() if {"check_id", "status"}.issubset(build_audit.columns) else {}
+        ok = (
+            audit_map.get("anonymous_acm_review_mode") == "pass"
+            and audit_map.get("no_profitable_strategy_claim") == "pass"
+            and audit_map.get("same_holdout_rescue_blocked") == "pass"
+            and audit_map.get("source_anonymity") == "pass"
+            and audit_map.get("pdf_compilation") == "pass"
+            and audit_map.get("pdf_page_budget") == "pass"
+            and audit_map.get("pdf_warning_review") == "review_required"
+            and audit_map.get("artifact_archive") == "not_claimed"
+            and "fail" not in set(audit_map.values())
+        )
+        add(
+            results,
+            "phase47_build_audit_guardrails",
+            PASS if ok else FAIL,
+            f"audit={audit_map}",
+        )
+
+    if table_manifest is not None:
+        table_map = table_manifest.set_index("table_id")["status"].astype(str).to_dict() if {"table_id", "status"}.issubset(table_manifest.columns) else {}
+        ok = (
+            table_map.get("T1") == "included_in_phase47_draft"
+            and table_map.get("T2") == "included_in_phase47_draft"
+            and table_map.get("T3") == "included_in_phase47_draft"
+            and table_map.get("T4") == "appendix_or_reviewer_pack"
+        )
+        add(
+            results,
+            "phase47_table_manifest_guardrails",
+            PASS if ok else FAIL,
+            f"tables={table_map}",
+        )
+
+    if figure_manifest is not None:
+        figures = set(figure_manifest.get("figure_id", pd.Series(dtype=str)).astype(str))
+        statuses = set(figure_manifest.get("phase47_status", pd.Series(dtype=str)).astype(str))
+        ok = {"F1", "F2", "F3", "F4"}.issubset(figures) and statuses.issubset(
+            {"needs_final_drawing", "ready_from_existing_artifacts", "planned_not_drawn", "table_substitute_available"}
+        )
+        add(
+            results,
+            "phase47_figure_manifest_guardrails",
+            PASS if ok else FAIL,
+            f"figures={sorted(figures)}; statuses={sorted(statuses)}",
+        )
+
+    if anonymity_audit is not None:
+        status_map = anonymity_audit.set_index("check_id")["status"].astype(str).to_dict() if {"check_id", "status"}.issubset(anonymity_audit.columns) else {}
+        required = {"author_block", "acknowledgements", "github_link", "personal_name_saransh", "institution_marker", "tool_marker"}
+        ok = required.issubset(status_map) and set(status_map.values()) == {"pass"}
+        add(
+            results,
+            "phase47_anonymity_source_guardrails",
+            PASS if ok else FAIL,
+            f"anonymity={status_map}",
+        )
+
+    if reference_manifest is not None:
+        refs = set(reference_manifest.get("citation_key", pd.Series(dtype=str)).astype(str))
+        required_refs = {"lopezdeprado2018afml", "hamilton1989regime", "rabiner1989hmm", "oord2018cpc", "lightgbm2017"}
+        add(
+            results,
+            "phase47_reference_manifest_guardrails",
+            PASS if required_refs.issubset(refs) else FAIL,
+            f"refs={sorted(refs)}",
+        )
+
+    if gitignore_path.exists():
+        gitignore_text = gitignore_path.read_text(encoding="utf-8")
+        required_unignored = [
+            "!models/phase47_manuscript_build_audit.csv",
+            "!models/phase47_table_manifest.csv",
+            "!models/phase47_figure_manifest.csv",
+            "!models/phase47_anonymity_source_audit.csv",
+            "!models/phase47_reference_manifest.csv",
+            "!paper/phase47_submission_draft.pdf",
+        ]
+        missing = [entry for entry in required_unignored if entry not in gitignore_text]
+        add(
+            results,
+            "phase47_gitignore_curated_csv_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 47 curated CSV artifacts are unignored",
+        )
+
+    required_text = {
+        draft_path: [
+            r"\documentclass[sigconf,anonymous,review]{acmart}",
+            "does not claim a tradable strategy",
+            "limited locked relative support",
+            "locked holdout cannot be reused for model rescue",
+            r"\bibliography{phase47_references}",
+        ],
+        build_report_path: [
+            "Phase 47 converts the Phase 46 research-completion package",
+            "does not tune models",
+            "not a submitted paper",
+            "artifact archive/DOI decision",
+        ],
+        blind_report_path: [
+            "source-level audit only",
+            "compiled PDF content and metadata",
+            "double-blind",
+        ],
+        gap_list_path: [
+            "Recompile `paper/phase47_submission_draft.tex`",
+            "Re-measure final PDF length",
+            "DOI archive",
+        ],
+        BASE_DIR / "README.md": [
+            "## Phase 47 Submission Manuscript Build",
+            "not a new experiment",
+            "compiled PDF",
+            "not yet a submitted paper",
+        ],
+    }
+    for path, phrases in required_text.items():
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [phrase for phrase in phrases if phrase not in text]
+        add(
+            results,
+            f"{path.stem}_phase47_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 47 submission-build wording present",
+        )
+
+
 def check_classical_artifacts(results: list[CheckResult]) -> None:
     models = BASE_DIR / "models"
     summary = read_csv_checked(
@@ -1639,6 +1809,7 @@ def main() -> int:
     check_phase44_paper_package(results)
     check_phase45_venue_manuscript_package(results)
     check_phase46_final_research_completion(results)
+    check_phase47_submission_build(results)
     check_checkpoint_run(
         results,
         "phase39r_neural_full_v1",

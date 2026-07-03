@@ -109,6 +109,8 @@ Phase 45 is a venue-ready manuscript packaging phase, not a model-improvement ph
 
 Phase 46 is a final research-completion packaging phase, not a model-improvement phase. It marks the repository evidence package as research-complete and adds the final submission manuscript source, ACM skeleton, section budget, anonymity audit, reviewer response pack, submission gate, and final claim audit. It does not mean the paper has already been externally submitted, and it does not authorize new model search, same-holdout retuning, profitability claims, or artifact-availability claims before a DOI or persistent archive exists.
 
+Phase 47 is a submission manuscript build and blind-review hardening phase, not a model-improvement phase. It converts the Phase 46 package into `paper/phase47_submission_draft.tex`, `paper/phase47_references.bib`, table/figure manifests, source anonymity audit, build audit, and a camera-ready gap list. It does not mean the paper has already been externally submitted, and it does not authorize new model search, same-holdout retuning, profitability claims, broad dominance claims, or artifact-availability claims before a DOI or persistent archive exists.
+
 Future improvement phases must not tune directly against Phase 40 outer-test outcomes or Phase 41B outer-fold outcomes. Candidate selection must remain inside training/inner-validation windows, and Existing Crypto-20 results are an untouched final test only for claims that were fixed before those results were inspected.
 
 ## Resume-Safe Language

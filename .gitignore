@@ -179,6 +179,22 @@ models/*.csv
 !models/phase46_anonymity_audit.csv
 !models/phase46_final_claim_audit.csv
 !models/phase46_reviewer_objection_matrix.csv
+!models/phase47_manuscript_build_audit.csv
+!models/phase47_table_manifest.csv
+!models/phase47_figure_manifest.csv
+!models/phase47_anonymity_source_audit.csv
+!models/phase47_reference_manifest.csv
+!paper/phase47_submission_draft.pdf
+
+# LaTeX local build byproducts; keep the curated compiled PDF only.
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
 
 # Keep compact Crypto-20 regime summaries, not row-level assignments.
 models/crypto20_regime_assignments.csv

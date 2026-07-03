@@ -1125,9 +1125,42 @@ Core artifacts:
 - `models/phase46_final_claim_audit.csv`
 - `models/phase46_reviewer_objection_matrix.csv`
 
+## Phase 47 Submission Manuscript Build
+
+Phase 47 is a submission-build and blind-review-hardening layer. It is not a new experiment and does not tune models, change labels, select a new candidate, rerun the locked holdout, or reinterpret locked/final evaluation data.
+
+Phase 47 adds:
+
+- a build-oriented anonymous ACM `sigconf` LaTeX draft;
+- a BibTeX reference file with starter citations;
+- a manuscript build audit;
+- a table manifest mapping final tables to evidence artifacts;
+- a figure manifest identifying which figures still need final drawing;
+- a source-level anonymity audit;
+- a locally compiled PDF evidence artifact;
+- a camera-ready/submission gap list.
+
+The Phase 47 status is intentionally precise:
+
+> The manuscript source is now build-oriented and paper-safe, and the local ACM draft PDF compiles to a 2-page artifact. It is not yet a submitted paper: current venue-template verification, LaTeX/BibTeX warning cleanup, PDF/metadata anonymity review, final figure drawing, citation polish, and artifact archive/DOI decisions remain before external submission.
+
+Core artifacts:
+
+- `paper/phase47_submission_draft.tex`
+- `paper/phase47_references.bib`
+- `paper/phase47_submission_draft.pdf`
+- `reports/phase47_submission_build_report.md`
+- `reports/phase47_blind_review_hardening.md`
+- `reports/phase47_camera_ready_gap_list.md`
+- `models/phase47_manuscript_build_audit.csv`
+- `models/phase47_table_manifest.csv`
+- `models/phase47_figure_manifest.csv`
+- `models/phase47_anonymity_source_audit.csv`
+- `models/phase47_reference_manifest.csv`
+
 ## Current Status
 
-The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. Phase 46 marks the repository evidence package research-complete and creates the final paper-formatting, anonymity, reviewer-response, and submission-gate package. It remains not ready for blind external submission until the final PDF, citations, figures, anonymity audit, and artifact archive/DOI decision are complete. The research-grade regression gate passes.
+The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. Phase 46 marks the repository evidence package research-complete and creates the final paper-formatting, anonymity, reviewer-response, and submission-gate package. Phase 47 converts that package into a build-oriented anonymous LaTeX draft, references file, compiled PDF, source anonymity audit, table/figure manifests, and submission gap list. It remains not ready for blind external submission until the current venue template is verified, LaTeX/BibTeX warnings are reviewed, figures/citations are finalized, PDF/metadata anonymity is audited, and the artifact archive/DOI decision is complete. The research-grade regression gate passes.
 
 Use the frozen-universe calendar audit command, not the bare default command:
 
