@@ -174,6 +174,8 @@ class Phase47SubmissionBuildTests(unittest.TestCase):
                 "pages": 2,
                 "bytes": 363597,
                 "warnings": ["Overfull \\hbox"],
+                "log_available": True,
+                "bibtex_log_available": True,
             },
         )
         status_map = audit.set_index("check_id")["status"].to_dict()
@@ -183,6 +185,63 @@ class Phase47SubmissionBuildTests(unittest.TestCase):
         self.assertEqual(status_map["pdf_page_budget"], "pass")
         self.assertEqual(status_map["pdf_warning_review"], "review_required")
         self.assertIn("pages=2", detail_map["pdf_compilation"])
+
+    def test_build_audit_keeps_pdf_warning_review_required_without_logs(self) -> None:
+        tex = phase47.build_submission_tex(
+            self.locked_results(),
+            self.locked_primary(),
+            self.evidence_matrix(),
+        )
+        refs = phase47.build_references_bib()
+        anonymity = phase47.build_anonymity_audit(tex, refs)
+        audit = phase47.build_build_audit(
+            tex,
+            refs,
+            anonymity,
+            {
+                "exists": True,
+                "pages": 2,
+                "bytes": 363597,
+                "warnings": [],
+                "log_available": False,
+                "bibtex_log_available": False,
+            },
+        )
+        status_map = audit.set_index("check_id")["status"].to_dict()
+        detail_map = audit.set_index("check_id")["detail"].to_dict()
+
+        self.assertEqual(status_map["pdf_compilation"], "pass")
+        self.assertEqual(status_map["pdf_warning_review"], "review_required")
+        self.assertIn("logs are unavailable", detail_map["pdf_warning_review"])
+
+    def test_read_pdf_build_status_detects_bibtex_warnings(self) -> None:
+        tmp_pdf = Path("tmp_phase47_warning_test.pdf")
+        tmp_log = Path("tmp_phase47_warning_test.log")
+        tmp_blg = Path("tmp_phase47_warning_test.blg")
+        try:
+            tmp_pdf.write_bytes(
+                b"%PDF-1.4\n1 0 obj << /Type /Pages >> endobj\n"
+                b"2 0 obj << /Type /Page >> endobj\n"
+            )
+            tmp_log.write_text(
+                "Output written on tmp_phase47_warning_test.pdf (1 page, 123 bytes)\n"
+                "Overfull \\hbox\n",
+                encoding="utf-8",
+            )
+            tmp_blg.write_text("Warning--empty publisher in example\n", encoding="utf-8")
+
+            status = phase47.read_pdf_build_status(tmp_pdf, tmp_log, tmp_blg)
+
+            self.assertTrue(status["exists"])
+            self.assertEqual(status["pages"], 1)
+            self.assertIn("Overfull \\hbox", status["warnings"])
+            self.assertIn("BibTeX Warning", status["warnings"])
+            self.assertTrue(status["log_available"])
+            self.assertTrue(status["bibtex_log_available"])
+        finally:
+            for path in [tmp_pdf, tmp_log, tmp_blg]:
+                if path.exists():
+                    path.unlink()
 
     def test_estimate_pdf_pages_counts_page_objects_without_external_dependency(self) -> None:
         tmp_pdf = Path("tmp_phase47_page_count_test.pdf")

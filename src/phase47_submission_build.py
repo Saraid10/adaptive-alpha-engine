@@ -30,6 +30,7 @@ SUBMISSION_DRAFT_PATH = PAPER_DIR / "phase47_submission_draft.tex"
 REFERENCES_PATH = PAPER_DIR / "phase47_references.bib"
 COMPILED_PDF_PATH = PAPER_DIR / "phase47_submission_draft.pdf"
 LATEX_LOG_PATH = PAPER_DIR / "phase47_submission_draft.log"
+BIBTEX_LOG_PATH = PAPER_DIR / "phase47_submission_draft.blg"
 BUILD_REPORT_PATH = REPORTS_DIR / "phase47_submission_build_report.md"
 BLIND_REVIEW_REPORT_PATH = REPORTS_DIR / "phase47_blind_review_hardening.md"
 GAP_LIST_PATH = REPORTS_DIR / "phase47_camera_ready_gap_list.md"
@@ -80,13 +81,19 @@ def estimate_pdf_pages(pdf_path: Path) -> int | None:
     return len(matches) if matches else None
 
 
-def read_pdf_build_status(pdf_path: Path = COMPILED_PDF_PATH, log_path: Path = LATEX_LOG_PATH) -> dict[str, object]:
+def read_pdf_build_status(
+    pdf_path: Path = COMPILED_PDF_PATH,
+    log_path: Path = LATEX_LOG_PATH,
+    bibtex_log_path: Path = BIBTEX_LOG_PATH,
+) -> dict[str, object]:
     """Return conservative local PDF build evidence for the submission audit."""
     status: dict[str, object] = {
         "exists": pdf_path.exists(),
         "bytes": pdf_path.stat().st_size if pdf_path.exists() else None,
         "pages": estimate_pdf_pages(pdf_path),
         "warnings": [],
+        "log_available": log_path.exists(),
+        "bibtex_log_available": bibtex_log_path.exists(),
     }
     if log_path.exists():
         log_text = log_path.read_text(encoding="utf-8", errors="replace")
@@ -98,6 +105,10 @@ def read_pdf_build_status(pdf_path: Path = COMPILED_PDF_PATH, log_path: Path = L
             if marker in log_text:
                 warnings.append(marker)
         status["warnings"] = sorted(set(warnings))
+    if bibtex_log_path.exists():
+        bibtex_log_text = bibtex_log_path.read_text(encoding="utf-8", errors="replace")
+        if "Warning--" in bibtex_log_text:
+            status["warnings"] = sorted(set([*list(status["warnings"]), "BibTeX Warning"]))
     return status
 
 
@@ -583,17 +594,21 @@ def build_build_audit(
     pdf_pages = pdf_status.get("pages")
     pdf_bytes = pdf_status.get("bytes")
     pdf_warnings = list(pdf_status.get("warnings", []))
+    log_available = bool(pdf_status.get("log_available", False))
+    bibtex_log_available = bool(pdf_status.get("bibtex_log_available", False))
     if pdf_exists:
         pdf_detail = f"Compiled PDF exists at paper/phase47_submission_draft.pdf; pages={pdf_pages}; bytes={pdf_bytes}."
     else:
         pdf_detail = "Source is build-ready, but final PDF compilation/page count must be run with the current venue template."
 
     page_budget_ok = isinstance(pdf_pages, int) and pdf_pages <= 8
-    warning_detail = (
-        f"LaTeX completed with warning markers requiring human layout review: {', '.join(pdf_warnings)}."
-        if pdf_warnings
-        else "No local LaTeX warning markers were detected, or no LaTeX log was available."
-    )
+    warning_review_required = pdf_exists and (bool(pdf_warnings) or not log_available or not bibtex_log_available)
+    if pdf_warnings:
+        warning_detail = f"LaTeX/BibTeX completed with warning markers requiring human layout review: {', '.join(pdf_warnings)}."
+    elif pdf_exists and (not log_available or not bibtex_log_available):
+        warning_detail = "Compiled PDF exists, but local LaTeX/BibTeX logs are unavailable; rerun compilation before external submission and inspect warnings."
+    else:
+        warning_detail = "Local LaTeX and BibTeX logs were inspected and no warning markers were detected."
     rows = [
         {
             "check_id": "anonymous_acm_review_mode",
@@ -641,7 +656,7 @@ def build_build_audit(
         },
         {
             "check_id": "pdf_warning_review",
-            "status": "review_required" if pdf_warnings else ("pass" if pdf_exists else "conditional_pass"),
+            "status": "review_required" if warning_review_required else ("pass" if pdf_exists else "conditional_pass"),
             "detail": warning_detail,
         },
         {
