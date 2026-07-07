@@ -27,7 +27,7 @@ Phase 47 converts the Phase 46 research-completion package into a stronger anony
 | source_anonymity | pass | Source anonymity audit must pass before external review. |
 | pdf_compilation | pass | Compiled PDF exists at paper/phase47_submission_draft.pdf; pages=2; bytes=363597. |
 | pdf_page_budget | pass | Compiled draft page estimate is 2; verify against the active venue limit. |
-| pdf_warning_review | review_required | LaTeX completed with warning markers requiring human layout review: Class acmart Warning, Overfull \hbox, Package balance Warning. |
+| pdf_warning_review | review_required | LaTeX/BibTeX completed with warning markers requiring human layout review: BibTeX Warning, Class acmart Warning, Overfull \hbox, Package balance Warning. |
 | artifact_archive | not_claimed | No artifact availability claim until DOI/permanent archive exists. |
 
 ## Table Manifest
