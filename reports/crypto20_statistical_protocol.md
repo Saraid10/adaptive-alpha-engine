@@ -46,7 +46,7 @@ Primary metrics are fold IC, Sharpe, total return, drawdown, and turnover. Paire
 ## Command
 
 ```powershell
-.\run_phase37_crypto20_statistics.ps1
+.\scripts\phases\run_phase37_crypto20_statistics.ps1
 ```
 
 ## Completed Findings

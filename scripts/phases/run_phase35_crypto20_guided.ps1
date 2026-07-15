@@ -4,6 +4,9 @@ param(
     [int]$MaxWindows = 0,
     [switch]$TrainOnly
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
 

@@ -2,6 +2,9 @@ param(
   [string]$Config = "configs\phase43b_locked_holdout_registration_v1.json",
   [string]$DbPath = ""
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
 

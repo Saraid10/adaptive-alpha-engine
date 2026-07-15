@@ -49,11 +49,11 @@ The strongest guided method, `regime_lgbm_hmm_guided_hmm`, improves IC versus th
 ## Command
 
 ```powershell
-.\run_phase36_crypto20_alpha.ps1
+.\scripts\phases\run_phase36_crypto20_alpha.ps1
 ```
 
 For a quick smoke check:
 
 ```powershell
-.\run_phase36_crypto20_alpha.ps1 -MaxFolds 1
+.\scripts\phases\run_phase36_crypto20_alpha.ps1 -MaxFolds 1
 ```

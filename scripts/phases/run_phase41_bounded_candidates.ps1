@@ -1,6 +1,9 @@
 param(
   [string]$PythonExe = ".\env\Scripts\python.exe"
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 & $PythonExe src\phase41_bounded_candidates.py
 if ($LASTEXITCODE -ne 0) {

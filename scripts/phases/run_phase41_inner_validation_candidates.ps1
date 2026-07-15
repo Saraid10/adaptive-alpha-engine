@@ -9,6 +9,9 @@ param(
     "regime_lgbm_kmeans",
     "regime_lgbm_vol_bucket"
   )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 )
 
 & $PythonExe src\phase41_inner_validation_candidates.py `

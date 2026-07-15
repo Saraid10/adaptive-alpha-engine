@@ -535,7 +535,7 @@ This appendix explains how a reviewer should reproduce the evidence package with
 .\\env\\Scripts\\python.exe src\\fold_local_encoder_walkforward.py --universe crypto20 --calendar-audit-only
 .\\env\\Scripts\\python.exe -m unittest discover -s tests -q
 .\\run_research_grade_checks.ps1 -Mode full
-.\\run_phase45_venue_manuscript_package.ps1
+.\\scripts\\phases\\run_phase45_venue_manuscript_package.ps1
 ```
 
 ## Artifact Policy

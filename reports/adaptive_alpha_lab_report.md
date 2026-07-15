@@ -472,7 +472,7 @@ The compute estimate is heavy but feasible: using the Phase 17 measured CPU step
 
 ## Phase 35 Crypto-20 Guided Encoder Training
 
-Phase 35 executes the full learned-regime expansion beyond the BTC/ETH pilot. `src/guided_encoder.py` resolves `--universe crypto20`, reads `models/crypto20_regime_assignments.csv` as the HMM weak-supervision source, and writes separate `crypto20_guided_encoder_*` artifacts without overwriting the BTC/ETH guided encoder outputs. The helper script `run_phase35_crypto20_guided.ps1` records the long training command and logs output under `.tmp/`.
+Phase 35 executes the full learned-regime expansion beyond the BTC/ETH pilot. `src/guided_encoder.py` resolves `--universe crypto20`, reads `models/crypto20_regime_assignments.csv` as the HMM weak-supervision source, and writes separate `crypto20_guided_encoder_*` artifacts without overwriting the BTC/ETH guided encoder outputs. The helper script `scripts/phases/run_phase35_crypto20_guided.ps1` records the long training command and logs output under `.tmp/`.
 
 The completed CPU run trains for 30 epochs on 348,606 eligible windows across 20 Crypto-20 symbols. The training loss falls from `0.3258` at epoch 1 to `0.0864` at epoch 30, while valid-anchor coverage stays at `1.000`. This indicates that the HMM-guided positive-pair and hard-negative mining setup remains usable at the multi-asset scale rather than collapsing into sparse or invalid pair selection.
 

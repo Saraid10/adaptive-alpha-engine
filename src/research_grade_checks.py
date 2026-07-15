@@ -309,8 +309,8 @@ def check_phase41_artifacts(results: list[CheckResult]) -> None:
     report_path = BASE_DIR / "reports" / "phase41_bounded_improvement_protocol.md"
     runner_path = BASE_DIR / "src" / "phase41_inner_validation_candidates.py"
     runner_test_path = BASE_DIR / "tests" / "test_phase41_inner_validation_candidates.py"
-    runner_ps1_path = BASE_DIR / "run_phase41_inner_validation_candidates.ps1"
-    runner_sh_path = BASE_DIR / "run_phase41_inner_validation_candidates.sh"
+    runner_ps1_path = BASE_DIR / "scripts/phases/run_phase41_inner_validation_candidates.ps1"
+    runner_sh_path = BASE_DIR / "scripts/phases/run_phase41_inner_validation_candidates.sh"
     full_summary_path = BASE_DIR / "models" / "phase41_classical_experiment_results.csv"
     full_fold_path = BASE_DIR / "models" / "phase41_classical_fold_metrics.csv"
     full_selected_path = BASE_DIR / "models" / "phase41_classical_selected_candidates.csv"
@@ -482,8 +482,8 @@ def check_phase42_artifacts(results: list[CheckResult]) -> None:
     report_path = BASE_DIR / "reports" / "phase42_interpretation_execution_hardening.md"
     runner_path = BASE_DIR / "src" / "phase42_interpretation_execution.py"
     test_path = BASE_DIR / "tests" / "test_phase42_interpretation_execution.py"
-    ps1_path = BASE_DIR / "run_phase42_interpretation_execution.ps1"
-    sh_path = BASE_DIR / "run_phase42_interpretation_execution.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase42_interpretation_execution.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase42_interpretation_execution.sh"
 
     for path, check in [
         (runner_path, "phase42_runner_exists"),
@@ -591,8 +591,8 @@ def check_phase43a_artifacts(results: list[CheckResult]) -> None:
     config_path = BASE_DIR / "configs" / "phase43_locked_holdout_freeze_v1.json"
     runner_path = BASE_DIR / "src" / "phase43_locked_holdout_freeze.py"
     test_path = BASE_DIR / "tests" / "test_phase43_locked_holdout_freeze.py"
-    ps1_path = BASE_DIR / "run_phase43_locked_holdout_freeze.ps1"
-    sh_path = BASE_DIR / "run_phase43_locked_holdout_freeze.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase43_locked_holdout_freeze.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase43_locked_holdout_freeze.sh"
     manifest_path = models / "phase43_locked_candidate_manifest.csv"
     claims_path = models / "phase43_locked_claim_rules.csv"
     holdout_path = models / "phase43_locked_holdout_rules.csv"
@@ -698,8 +698,8 @@ def check_phase43b_registration_artifacts(results: list[CheckResult]) -> None:
     config_path = BASE_DIR / "configs" / "phase43b_locked_holdout_registration_v1.json"
     runner_path = BASE_DIR / "src" / "phase43b_locked_holdout_registration.py"
     test_path = BASE_DIR / "tests" / "test_phase43b_locked_holdout_registration.py"
-    ps1_path = BASE_DIR / "run_phase43b_locked_holdout_registration.ps1"
-    sh_path = BASE_DIR / "run_phase43b_locked_holdout_registration.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase43b_locked_holdout_registration.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase43b_locked_holdout_registration.sh"
     quality_path = models / "phase43b_holdout_candidate_quality.csv"
     symbols_path = models / "phase43b_registered_holdout_symbols.csv"
     manifest_path = models / "phase43b_locked_holdout_registration_manifest.csv"
@@ -976,8 +976,8 @@ def check_phase44_paper_package(results: list[CheckResult]) -> None:
     artifact_map_path = BASE_DIR / "reports" / "paper_artifact_map.csv"
     runner_path = BASE_DIR / "src" / "phase44_paper_readiness_package.py"
     test_path = BASE_DIR / "tests" / "test_phase44_paper_readiness_package.py"
-    ps1_path = BASE_DIR / "run_phase44_paper_readiness_package.ps1"
-    sh_path = BASE_DIR / "run_phase44_paper_readiness_package.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase44_paper_readiness_package.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase44_paper_readiness_package.sh"
     evidence_path = models / "phase44_paper_evidence_matrix.csv"
     risk_path = models / "phase44_submission_risk_register.csv"
 
@@ -1097,7 +1097,7 @@ def check_phase44_paper_package(results: list[CheckResult]) -> None:
             "Do not switch from the frozen guided-HMM final candidate",
         ],
         readme_path: [
-            "Current Research Finding After Phase 44",
+            "Current Research Finding After Phase 48",
             "How To Read The Historical Phase Notes",
             "Those sections are preserved for audit history, but they are not the current paper claim",
             "## Phase 40 Repaired Statistical Adjudication",
@@ -1130,8 +1130,8 @@ def check_phase45_venue_manuscript_package(results: list[CheckResult]) -> None:
     external_audit_path = BASE_DIR / "reports" / "phase45_external_research_audit.md"
     runner_path = BASE_DIR / "src" / "phase45_venue_manuscript_package.py"
     test_path = BASE_DIR / "tests" / "test_phase45_venue_manuscript_package.py"
-    ps1_path = BASE_DIR / "run_phase45_venue_manuscript_package.ps1"
-    sh_path = BASE_DIR / "run_phase45_venue_manuscript_package.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase45_venue_manuscript_package.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase45_venue_manuscript_package.sh"
     table_plan_path = models / "phase45_table_plan.csv"
     figure_plan_path = models / "phase45_figure_plan.csv"
     claim_map_path = models / "phase45_claim_to_section_map.csv"
@@ -1296,8 +1296,8 @@ def check_phase46_final_research_completion(results: list[CheckResult]) -> None:
     models = BASE_DIR / "models"
     runner_path = BASE_DIR / "src" / "phase46_final_research_completion.py"
     test_path = BASE_DIR / "tests" / "test_phase46_final_research_completion.py"
-    ps1_path = BASE_DIR / "run_phase46_final_research_completion.ps1"
-    sh_path = BASE_DIR / "run_phase46_final_research_completion.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase46_final_research_completion.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase46_final_research_completion.sh"
     submission_manuscript_path = BASE_DIR / "paper" / "phase46_submission_manuscript.md"
     acm_skeleton_path = BASE_DIR / "paper" / "phase46_acm_sigconf_skeleton.tex"
     final_report_path = BASE_DIR / "reports" / "phase46_final_research_completion.md"
@@ -1464,8 +1464,8 @@ def check_phase47_submission_build(results: list[CheckResult]) -> None:
     models = BASE_DIR / "models"
     runner_path = BASE_DIR / "src" / "phase47_submission_build.py"
     test_path = BASE_DIR / "tests" / "test_phase47_submission_build.py"
-    ps1_path = BASE_DIR / "run_phase47_submission_build.ps1"
-    sh_path = BASE_DIR / "run_phase47_submission_build.sh"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase47_submission_build.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase47_submission_build.sh"
     draft_path = BASE_DIR / "paper" / "phase47_submission_draft.tex"
     references_path = BASE_DIR / "paper" / "phase47_references.bib"
     compiled_pdf_path = BASE_DIR / "paper" / "phase47_submission_draft.pdf"
@@ -1627,6 +1627,161 @@ def check_phase47_submission_build(results: list[CheckResult]) -> None:
             f"{path.stem}_phase47_guardrails",
             FAIL if missing else PASS,
             f"missing={missing}" if missing else "Phase 47 submission-build wording present",
+        )
+
+
+def check_phase48_paper_polish(results: list[CheckResult]) -> None:
+    models = BASE_DIR / "models"
+    runner_path = BASE_DIR / "src" / "phase48_paper_polish.py"
+    test_path = BASE_DIR / "tests" / "test_phase48_paper_polish.py"
+    ps1_path = BASE_DIR / "scripts/phases/run_phase48_paper_polish.ps1"
+    sh_path = BASE_DIR / "scripts/phases/run_phase48_paper_polish.sh"
+    tex_path = BASE_DIR / "paper" / "phase48_review_ready_manuscript.tex"
+    references_path = BASE_DIR / "paper" / "phase48_references.bib"
+    pdf_path = BASE_DIR / "paper" / "phase48_review_ready_manuscript.pdf"
+    polish_report_path = BASE_DIR / "reports" / "phase48_paper_polish_report.md"
+    reviewer_guide_path = BASE_DIR / "reports" / "phase48_reviewer_reading_guide.md"
+    warning_plan_path = BASE_DIR / "reports" / "phase48_latex_warning_resolution.md"
+    quality_path = models / "phase48_paper_quality_audit.csv"
+    claim_trace_path = models / "phase48_claim_traceability.csv"
+    warning_audit_path = models / "phase48_latex_warning_audit.csv"
+    section_budget_path = models / "phase48_section_budget.csv"
+    gitignore_path = BASE_DIR / ".gitignore"
+
+    for path, check in [
+        (runner_path, "phase48_runner_exists"),
+        (test_path, "phase48_tests_exist"),
+        (ps1_path, "phase48_runner_ps1_exists"),
+        (sh_path, "phase48_runner_sh_exists"),
+        (tex_path, "phase48_review_tex_exists"),
+        (references_path, "phase48_references_exists"),
+        (pdf_path, "phase48_compiled_pdf_exists"),
+        (polish_report_path, "phase48_polish_report_exists"),
+        (reviewer_guide_path, "phase48_reviewer_guide_exists"),
+        (warning_plan_path, "phase48_warning_plan_exists"),
+    ]:
+        require_file(results, path, check)
+
+    quality = read_csv_checked(results, quality_path, "phase48_quality_audit")
+    claim_trace = read_csv_checked(results, claim_trace_path, "phase48_claim_traceability")
+    warning_audit = read_csv_checked(results, warning_audit_path, "phase48_warning_audit")
+    section_budget = read_csv_checked(results, section_budget_path, "phase48_section_budget")
+
+    if quality is not None:
+        quality_map = quality.set_index("check_id")["status"].astype(str).to_dict() if {"check_id", "status"}.issubset(quality.columns) else {}
+        required_pass = {
+            "anonymous_review_mode",
+            "claim_boundaries",
+            "locked_holdout_boundary",
+            "candidate_switching_boundary",
+            "negative_result_framing",
+            "pdf_warning_state_recorded",
+        }
+        failures = [check for check in required_pass if quality_map.get(check) != "pass"]
+        add(
+            results,
+            "phase48_quality_audit_guardrails",
+            FAIL if failures or "fail" in set(quality_map.values()) else PASS,
+            f"failures={failures}; audit={quality_map}",
+        )
+
+    if warning_audit is not None:
+        warning_map = warning_audit.set_index("check_id")["status"].astype(str).to_dict() if {"check_id", "status"}.issubset(warning_audit.columns) else {}
+        ok = (
+            warning_map.get("pdf_compilation") == "pass"
+            and warning_map.get("build_logs_available") == "pass"
+            and warning_map.get("page_budget") == "pass"
+            and warning_map.get("warning_cleanup") in {"pass", "review_required"}
+        )
+        add(
+            results,
+            "phase48_warning_audit_guardrails",
+            PASS if ok else FAIL,
+            f"warnings={warning_map}",
+        )
+
+    if claim_trace is not None:
+        claim_map = claim_trace.set_index("claim_id")["status"].astype(str).to_dict() if {"claim_id", "status"}.issubset(claim_trace.columns) else {}
+        ok = (
+            claim_map.get("C1") == "allowed"
+            and claim_map.get("C2") == "allowed"
+            and claim_map.get("C3") == "blocked"
+            and claim_map.get("C4") == "blocked"
+            and claim_map.get("C5") == "blocked"
+        )
+        add(
+            results,
+            "phase48_claim_trace_guardrails",
+            PASS if ok else FAIL,
+            f"claims={claim_map}",
+        )
+
+    if section_budget is not None:
+        sections = set(section_budget.get("section", pd.Series(dtype=str)).astype(str))
+        required_sections = {"Abstract", "Introduction", "Results", "Discussion and Limitations", "References"}
+        add(
+            results,
+            "phase48_section_budget_guardrails",
+            PASS if required_sections.issubset(sections) else FAIL,
+            f"sections={sorted(sections)}",
+        )
+
+    if gitignore_path.exists():
+        gitignore_text = gitignore_path.read_text(encoding="utf-8")
+        required_unignored = [
+            "!models/phase48_paper_quality_audit.csv",
+            "!models/phase48_claim_traceability.csv",
+            "!models/phase48_latex_warning_audit.csv",
+            "!models/phase48_section_budget.csv",
+            "!paper/phase48_review_ready_manuscript.pdf",
+        ]
+        missing = [entry for entry in required_unignored if entry not in gitignore_text]
+        add(
+            results,
+            "phase48_gitignore_curated_artifact_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 48 curated CSV/PDF artifacts are unignored",
+        )
+
+    required_text = {
+        tex_path: [
+            r"\documentclass[sigconf,anonymous,review]{acmart}",
+            "limited locked relative",
+            "does not make that claim",
+            "cannot be reused for model rescue",
+            r"\bibliography{phase48_references}",
+        ],
+        polish_report_path: [
+            "does not tune models",
+            "not a submitted paper",
+            "Profitable-alpha, deployment, candidate-switching, and same-holdout retuning claims remain blocked",
+        ],
+        reviewer_guide_path: [
+            "Allowed claims",
+            "Blocked claims",
+            "no tradable-alpha claim",
+        ],
+        warning_plan_path: [
+            "Required before external submission",
+            "Inspect the PDF visually page by page",
+            "PDF metadata",
+        ],
+        BASE_DIR / "README.md": [
+            "## Phase 48 Review-Ready Paper Polish",
+            "not a model-rescue phase",
+            "review-ready manuscript package",
+        ],
+    }
+    for path, phrases in required_text.items():
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [phrase for phrase in phrases if phrase not in text]
+        add(
+            results,
+            f"{path.stem}_phase48_guardrails",
+            FAIL if missing else PASS,
+            f"missing={missing}" if missing else "Phase 48 paper-polish wording present",
         )
 
 
@@ -1810,6 +1965,7 @@ def main() -> int:
     check_phase45_venue_manuscript_package(results)
     check_phase46_final_research_completion(results)
     check_phase47_submission_build(results)
+    check_phase48_paper_polish(results)
     check_checkpoint_run(
         results,
         "phase39r_neural_full_v1",

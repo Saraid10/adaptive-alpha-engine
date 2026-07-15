@@ -1,10 +1,13 @@
 param(
     [int]$MaxFolds = 0
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
 
-$PythonExe = Join-Path $PSScriptRoot "env\Scripts\python.exe"
+$PythonExe = Join-Path $RepoRoot "env\Scripts\python.exe"
 if (-not (Test-Path $PythonExe)) {
     $PythonExe = "python"
 }

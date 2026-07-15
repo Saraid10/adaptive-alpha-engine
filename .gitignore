@@ -185,6 +185,11 @@ models/*.csv
 !models/phase47_anonymity_source_audit.csv
 !models/phase47_reference_manifest.csv
 !paper/phase47_submission_draft.pdf
+!models/phase48_paper_quality_audit.csv
+!models/phase48_claim_traceability.csv
+!models/phase48_latex_warning_audit.csv
+!models/phase48_section_budget.csv
+!paper/phase48_review_ready_manuscript.pdf
 
 # LaTeX local build byproducts; keep the curated compiled PDF only.
 paper/*.aux
