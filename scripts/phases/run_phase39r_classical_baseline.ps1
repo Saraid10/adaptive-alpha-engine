@@ -5,9 +5,12 @@ param(
     [string]$OutputPrefix = "crypto20_repaired_classical_",
     [switch]$Resume
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
-$PythonExe = Join-Path $PSScriptRoot "env\Scripts\python.exe"
+$PythonExe = Join-Path $RepoRoot "env\Scripts\python.exe"
 if (-not (Test-Path $PythonExe)) {
     $PythonExe = "python"
 }

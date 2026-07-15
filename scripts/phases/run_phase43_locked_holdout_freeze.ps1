@@ -1,3 +1,6 @@
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 $ErrorActionPreference = "Stop"
 
 $python = ".\env\Scripts\python.exe"

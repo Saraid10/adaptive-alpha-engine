@@ -1,6 +1,6 @@
 # Research Grade Check Report
 
-- Checks: 319
+- Checks: 347
 - Failures: 0
 - Warnings: 0
 
@@ -59,8 +59,8 @@
 | phase41_report_guardrails | PASS | Phase 41 report guardrails present |
 | phase41b_runner_exists | PASS | src\phase41_inner_validation_candidates.py |
 | phase41b_runner_tests_exist | PASS | tests\test_phase41_inner_validation_candidates.py |
-| phase41b_runner_ps1_exists | PASS | run_phase41_inner_validation_candidates.ps1 |
-| phase41b_runner_sh_exists | PASS | run_phase41_inner_validation_candidates.sh |
+| phase41b_runner_ps1_exists | PASS | scripts\phases\run_phase41_inner_validation_candidates.ps1 |
+| phase41b_runner_sh_exists | PASS | scripts\phases\run_phase41_inner_validation_candidates.sh |
 | phase41b_full_experiment_results_exists | PASS | models\phase41_classical_experiment_results.csv |
 | phase41b_full_experiment_results_readable | PASS | rows=4 columns=23 |
 | phase41b_full_fold_metrics_exists | PASS | models\phase41_classical_fold_metrics.csv |
@@ -82,8 +82,8 @@
 | phase41b_full_report_guardrails | PASS | Phase 41B full report guardrails present |
 | phase42_runner_exists | PASS | src\phase42_interpretation_execution.py |
 | phase42_tests_exist | PASS | tests\test_phase42_interpretation_execution.py |
-| phase42_runner_ps1_exists | PASS | run_phase42_interpretation_execution.ps1 |
-| phase42_runner_sh_exists | PASS | run_phase42_interpretation_execution.sh |
+| phase42_runner_ps1_exists | PASS | scripts\phases\run_phase42_interpretation_execution.ps1 |
+| phase42_runner_sh_exists | PASS | scripts\phases\run_phase42_interpretation_execution.sh |
 | phase42_execution_stress_results_exists | PASS | models\phase42_execution_stress_results.csv |
 | phase42_execution_stress_results_readable | PASS | rows=192 columns=13 |
 | phase42_execution_stress_summary_exists | PASS | models\phase42_execution_stress_summary.csv |
@@ -107,8 +107,8 @@
 | phase43a_config_exists | PASS | configs\phase43_locked_holdout_freeze_v1.json |
 | phase43a_runner_exists | PASS | src\phase43_locked_holdout_freeze.py |
 | phase43a_tests_exist | PASS | tests\test_phase43_locked_holdout_freeze.py |
-| phase43a_runner_ps1_exists | PASS | run_phase43_locked_holdout_freeze.ps1 |
-| phase43a_runner_sh_exists | PASS | run_phase43_locked_holdout_freeze.sh |
+| phase43a_runner_ps1_exists | PASS | scripts\phases\run_phase43_locked_holdout_freeze.ps1 |
+| phase43a_runner_sh_exists | PASS | scripts\phases\run_phase43_locked_holdout_freeze.sh |
 | phase43a_locked_candidate_manifest_exists | PASS | models\phase43_locked_candidate_manifest.csv |
 | phase43a_locked_candidate_manifest_readable | PASS | rows=20 columns=6 |
 | phase43a_locked_claim_rules_exists | PASS | models\phase43_locked_claim_rules.csv |
@@ -124,8 +124,8 @@
 | phase43b_registration_config_exists | PASS | configs\phase43b_locked_holdout_registration_v1.json |
 | phase43b_registration_runner_exists | PASS | src\phase43b_locked_holdout_registration.py |
 | phase43b_registration_tests_exist | PASS | tests\test_phase43b_locked_holdout_registration.py |
-| phase43b_registration_runner_ps1_exists | PASS | run_phase43b_locked_holdout_registration.ps1 |
-| phase43b_registration_runner_sh_exists | PASS | run_phase43b_locked_holdout_registration.sh |
+| phase43b_registration_runner_ps1_exists | PASS | scripts\phases\run_phase43b_locked_holdout_registration.ps1 |
+| phase43b_registration_runner_sh_exists | PASS | scripts\phases\run_phase43b_locked_holdout_registration.sh |
 | phase43b_holdout_candidate_quality_exists | PASS | models\phase43b_holdout_candidate_quality.csv |
 | phase43b_holdout_candidate_quality_readable | PASS | rows=75 columns=27 |
 | phase43b_registered_holdout_symbols_exists | PASS | models\phase43b_registered_holdout_symbols.csv |
@@ -174,8 +174,8 @@
 | phase43b_locked_adjudication_report_guardrails | PASS | locked adjudication report guardrails present |
 | phase44_runner_exists | PASS | src\phase44_paper_readiness_package.py |
 | phase44_tests_exist | PASS | tests\test_phase44_paper_readiness_package.py |
-| phase44_runner_ps1_exists | PASS | run_phase44_paper_readiness_package.ps1 |
-| phase44_runner_sh_exists | PASS | run_phase44_paper_readiness_package.sh |
+| phase44_runner_ps1_exists | PASS | scripts\phases\run_phase44_paper_readiness_package.ps1 |
+| phase44_runner_sh_exists | PASS | scripts\phases\run_phase44_paper_readiness_package.sh |
 | phase44_report_exists | PASS | reports\phase44_paper_readiness_package.md |
 | phase44_reviewer_brief_exists | PASS | reports\phase44_reviewer_brief.md |
 | phase44_prepush_hardening_audit_exists | PASS | reports\phase44_prepush_hardening_audit.md |
@@ -188,7 +188,7 @@
 | phase44_submission_risk_register_exists | PASS | models\phase44_submission_risk_register.csv |
 | phase44_submission_risk_register_readable | PASS | rows=6 columns=4 |
 | phase44_paper_artifact_map_exists | PASS | reports\paper_artifact_map.csv |
-| phase44_paper_artifact_map_readable | PASS | rows=27 columns=4 |
+| phase44_paper_artifact_map_readable | PASS | rows=34 columns=4 |
 | phase44_evidence_matrix_guardrails | PASS | blocks=['development_statistical_adjudication', 'execution_and_mechanism_diagnostics', 'locked_external_holdout', 'repaired_crypto20_development', 'validation_repair']; data_roles=['development_observed', 'locked_registered_unobserved'] |
 | phase44_risk_register_guardrails | PASS | Phase 44 risk register covers critical paper risks |
 | phase44_artifact_map_guardrails | PASS | missing_cols=[]; missing_phrases=[] |
@@ -201,8 +201,8 @@
 | README_phase44_guardrails | PASS | Phase 44 claim-control wording present |
 | phase45_runner_exists | PASS | src\phase45_venue_manuscript_package.py |
 | phase45_tests_exist | PASS | tests\test_phase45_venue_manuscript_package.py |
-| phase45_runner_ps1_exists | PASS | run_phase45_venue_manuscript_package.ps1 |
-| phase45_runner_sh_exists | PASS | run_phase45_venue_manuscript_package.sh |
+| phase45_runner_ps1_exists | PASS | scripts\phases\run_phase45_venue_manuscript_package.ps1 |
+| phase45_runner_sh_exists | PASS | scripts\phases\run_phase45_venue_manuscript_package.sh |
 | phase45_manuscript_exists | PASS | paper\phase45_venue_ready_manuscript.md |
 | phase45_package_report_exists | PASS | reports\phase45_venue_manuscript_package.md |
 | phase45_reproducibility_appendix_exists | PASS | reports\phase45_reproducibility_appendix.md |
@@ -228,8 +228,8 @@
 | README_phase45_guardrails | PASS | Phase 45 claim-control wording present |
 | phase46_runner_exists | PASS | src\phase46_final_research_completion.py |
 | phase46_tests_exist | PASS | tests\test_phase46_final_research_completion.py |
-| phase46_runner_ps1_exists | PASS | run_phase46_final_research_completion.ps1 |
-| phase46_runner_sh_exists | PASS | run_phase46_final_research_completion.sh |
+| phase46_runner_ps1_exists | PASS | scripts\phases\run_phase46_final_research_completion.ps1 |
+| phase46_runner_sh_exists | PASS | scripts\phases\run_phase46_final_research_completion.sh |
 | phase46_submission_manuscript_exists | PASS | paper\phase46_submission_manuscript.md |
 | phase46_acm_skeleton_exists | PASS | paper\phase46_acm_sigconf_skeleton.tex |
 | phase46_final_report_exists | PASS | reports\phase46_final_research_completion.md |
@@ -262,8 +262,8 @@
 | README_phase46_guardrails | PASS | Phase 46 completion wording present |
 | phase47_runner_exists | PASS | src\phase47_submission_build.py |
 | phase47_tests_exist | PASS | tests\test_phase47_submission_build.py |
-| phase47_runner_ps1_exists | PASS | run_phase47_submission_build.ps1 |
-| phase47_runner_sh_exists | PASS | run_phase47_submission_build.sh |
+| phase47_runner_ps1_exists | PASS | scripts\phases\run_phase47_submission_build.ps1 |
+| phase47_runner_sh_exists | PASS | scripts\phases\run_phase47_submission_build.sh |
 | phase47_submission_draft_exists | PASS | paper\phase47_submission_draft.tex |
 | phase47_references_exists | PASS | paper\phase47_references.bib |
 | phase47_compiled_pdf_exists | PASS | paper\phase47_submission_draft.pdf |
@@ -291,6 +291,34 @@
 | phase47_blind_review_hardening_phase47_guardrails | PASS | Phase 47 submission-build wording present |
 | phase47_camera_ready_gap_list_phase47_guardrails | PASS | Phase 47 submission-build wording present |
 | README_phase47_guardrails | PASS | Phase 47 submission-build wording present |
+| phase48_runner_exists | PASS | src\phase48_paper_polish.py |
+| phase48_tests_exist | PASS | tests\test_phase48_paper_polish.py |
+| phase48_runner_ps1_exists | PASS | scripts\phases\run_phase48_paper_polish.ps1 |
+| phase48_runner_sh_exists | PASS | scripts\phases\run_phase48_paper_polish.sh |
+| phase48_review_tex_exists | PASS | paper\phase48_review_ready_manuscript.tex |
+| phase48_references_exists | PASS | paper\phase48_references.bib |
+| phase48_compiled_pdf_exists | PASS | paper\phase48_review_ready_manuscript.pdf |
+| phase48_polish_report_exists | PASS | reports\phase48_paper_polish_report.md |
+| phase48_reviewer_guide_exists | PASS | reports\phase48_reviewer_reading_guide.md |
+| phase48_warning_plan_exists | PASS | reports\phase48_latex_warning_resolution.md |
+| phase48_quality_audit_exists | PASS | models\phase48_paper_quality_audit.csv |
+| phase48_quality_audit_readable | PASS | rows=6 columns=3 |
+| phase48_claim_traceability_exists | PASS | models\phase48_claim_traceability.csv |
+| phase48_claim_traceability_readable | PASS | rows=5 columns=5 |
+| phase48_warning_audit_exists | PASS | models\phase48_latex_warning_audit.csv |
+| phase48_warning_audit_readable | PASS | rows=4 columns=3 |
+| phase48_section_budget_exists | PASS | models\phase48_section_budget.csv |
+| phase48_section_budget_readable | PASS | rows=9 columns=3 |
+| phase48_quality_audit_guardrails | PASS | failures=[]; audit={'anonymous_review_mode': 'pass', 'claim_boundaries': 'pass', 'locked_holdout_boundary': 'pass', 'candidate_switching_boundary': 'pass', 'negative_result_framing': 'pass', 'pdf_warning_state_recorded': 'pass'} |
+| phase48_warning_audit_guardrails | PASS | warnings={'pdf_compilation': 'pass', 'build_logs_available': 'pass', 'warning_cleanup': 'review_required', 'page_budget': 'pass'} |
+| phase48_claim_trace_guardrails | PASS | claims={'C1': 'allowed', 'C2': 'allowed', 'C3': 'blocked', 'C4': 'blocked', 'C5': 'blocked'} |
+| phase48_section_budget_guardrails | PASS | sections=['Abstract', 'Data and Validation Protocol', 'Discussion and Limitations', 'Introduction', 'Methods', 'References', 'Related Work', 'Reproducibility', 'Results'] |
+| phase48_gitignore_curated_artifact_guardrails | PASS | Phase 48 curated CSV/PDF artifacts are unignored |
+| phase48_review_ready_manuscript_phase48_guardrails | PASS | Phase 48 paper-polish wording present |
+| phase48_paper_polish_report_phase48_guardrails | PASS | Phase 48 paper-polish wording present |
+| phase48_reviewer_reading_guide_phase48_guardrails | PASS | Phase 48 paper-polish wording present |
+| phase48_latex_warning_resolution_phase48_guardrails | PASS | Phase 48 paper-polish wording present |
+| README_phase48_guardrails | PASS | Phase 48 paper-polish wording present |
 | phase39r_neural_full_v1_run_state_exists | PASS | .tmp\phase39_fold_local\phase39r_neural_full_v1\run_state.json |
 | phase39r_neural_full_v1_checkpoint_count | PASS | 16/16 |
 | phase39r_neural_full_v1_checkpoint_methods | PASS | observed=['global_lgbm', 'regime_lgbm_contrastive', 'regime_lgbm_contrastive_hmm', 'regime_lgbm_hmm', 'regime_lgbm_hmm_guided_gmm', 'regime_lgbm_hmm_guided_hmm', 'regime_lgbm_kmeans', 'regime_lgbm_vol_bucket'] |

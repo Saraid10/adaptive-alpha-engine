@@ -121,13 +121,13 @@ Every manifest row records fold, method, seed, timestamps, row counts, window co
 Planned smoke command:
 
 ```powershell
-.\run_phase39_fold_local_encoder.ps1 -MaxFolds 1 -Epochs 1 -MaxWindows 5000 -RunName phase39_resume_smoke
+.\scripts\phases\run_phase39_fold_local_encoder.ps1 -MaxFolds 1 -Epochs 1 -MaxWindows 5000 -RunName phase39_resume_smoke
 ```
 
 Planned full command:
 
 ```powershell
-.\run_phase39_fold_local_encoder.ps1 -Resume
+.\scripts\phases\run_phase39_fold_local_encoder.ps1 -Resume
 ```
 
 ## Compute Strategy

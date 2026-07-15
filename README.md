@@ -4,9 +4,9 @@
 
 **Live Demo:** [adaptive-alpha-engine.streamlit.app](https://adaptive-alpha-engine.streamlit.app/)
 
-## Current Research Finding After Phase 44
+## Current Research Finding After Phase 48
 
-Phase 44 is the current paper-readiness checkpoint. Phase 39R repaired a serious validation weakness in the earlier Crypto-20 fold-local experiment: the original per-symbol positional folds overlapped in calendar time when assets were pooled. That earlier Phase 39 run is therefore kept only as audit history, not as predictive evidence.
+Phase 48 is the current paper-polish checkpoint. Phase 39R repaired a serious validation weakness in the earlier Crypto-20 fold-local experiment: the original per-symbol positional folds overlapped in calendar time when assets were pooled. That earlier Phase 39 run is therefore kept only as audit history, not as predictive evidence.
 
 Under the repaired `crypto20-development-v1` protocol, every method is evaluated on the same globally separated calendar folds, with a frozen development dataset, fold-local fitting, equal coverage, mean per-asset IC as the primary ranking metric, and a non-overlapping transaction-cost-aware portfolio diagnostic.
 
@@ -24,7 +24,7 @@ Phase 41 registers bounded calibration, soft-gating, and execution-control candi
 
 Phase 43B completes the one-shot locked external holdout. The frozen final candidate, `regime_lgbm_hmm_guided_hmm`, satisfies the prewritten relative IC/Sharpe rule versus `global_lgbm` and `regime_lgbm_hmm`, but its locked Sharpe and total return are still negative. Therefore the paper may claim limited locked relative support, but it must not claim a profitable, deployable, or broadly dominant trading strategy.
 
-Phase 44 converts this into a paper-facing evidence package, reviewer brief, and submission risk register. It is a packaging and claim-control phase, not a model-rescue phase.
+Phase 44 converts this into a paper-facing evidence package, reviewer brief, and submission risk register. Phase 45 through Phase 48 then harden the manuscript, submission package, compiled PDF, claim traceability, and reviewer-reading guide. These are packaging and claim-control phases, not model-rescue phases.
 
 ## How To Read The Historical Phase Notes
 
@@ -194,11 +194,11 @@ python src/check.py --universe crypto20
 python src/crypto20_quality_gate.py --universe crypto20
 python src/crypto20_regime_benchmark.py --universe crypto20
 python src/crypto20_guided_readiness.py --universe crypto20
-.\run_phase35_crypto20_guided.ps1
-.\run_phase36_crypto20_alpha.ps1
-.\run_phase37_crypto20_statistics.ps1
+.\scripts\phases\run_phase35_crypto20_guided.ps1
+.\scripts\phases\run_phase36_crypto20_alpha.ps1
+.\scripts\phases\run_phase37_crypto20_statistics.ps1
 python src/freeze_development_dataset.py --verify-only
-.\run_phase39r_classical_baseline.ps1 -MaxFolds 1 -RunName phase39r_classical_smoke -OutputDir .tmp\phase39r_classical_smoke -OutputPrefix smoke_
+.\scripts\phases\run_phase39r_classical_baseline.ps1 -MaxFolds 1 -RunName phase39r_classical_smoke -OutputDir .tmp\phase39r_classical_smoke -OutputPrefix smoke_
 ```
 
 Optional dashboard:
@@ -259,7 +259,7 @@ python -m pip install -r requirements-research.txt
 | `models/crypto20_development_fold_calendar.csv` | All 16 globally separated calendar folds |
 | `reports/crypto20_development_data_freeze.md` | Honest provenance and integrity statement for the development snapshot |
 | `reports/phase39r_classical_baseline_protocol.md` | Frozen four-method gate before repaired neural retraining |
-| `run_phase39r_classical_baseline.ps1` | Resume-safe PowerShell runner for the repaired classical benchmark |
+| `scripts/phases/run_phase39r_classical_baseline.ps1` | Resume-safe PowerShell runner for the repaired classical benchmark |
 | `reports/experiment_ledger.csv` | Complete inspected/planned experiment-family ledger |
 | `reports/publication_acceptance_gates.md` | Ordered scientific, paper, and BTech project completion gates |
 | `reports/phase39_fold_local_encoder_design.md` | Code-grounded implementation contract for the fully fold-local learned baseline |
@@ -364,8 +364,8 @@ python -m pip install -r requirements-research.txt
 | `runs/20260522_phase14b_baseline/manifest.json` | Frozen Phase 14B baseline manifest |
 | `reproduce.ps1` | Phase 28 PowerShell reproduction helper |
 | `reproduce.sh` | POSIX shell reproduction helper for Linux/macOS reviewers |
-| `run_phase35_crypto20_guided.ps1` | PowerShell runner for the long Crypto-20 guided encoder experiment |
-| `run_phase35_crypto20_guided.sh` | POSIX shell runner for the long Crypto-20 guided encoder experiment |
+| `scripts/phases/run_phase35_crypto20_guided.ps1` | PowerShell runner for the long Crypto-20 guided encoder experiment |
+| `scripts/phases/run_phase35_crypto20_guided.sh` | POSIX shell runner for the long Crypto-20 guided encoder experiment |
 | `reports/environment.md` | Phase 28 local and deployment environment notes |
 | `reports/artifact_manifest.md` | Phase 28 committed/regenerated/ignored artifact policy |
 | `reports/reproduction_checklist.md` | Phase 28 reviewer reproduction checklist |
@@ -391,12 +391,14 @@ adaptive-alpha-lab/
 ├── streamlit_app.py
 ├── reproduce.ps1
 ├── reproduce.sh
-├── run_phase35_crypto20_guided.ps1
-├── run_phase35_crypto20_guided.sh
-├── run_phase36_crypto20_alpha.ps1
-├── run_phase36_crypto20_alpha.sh
-├── run_phase37_crypto20_statistics.ps1
-├── run_phase37_crypto20_statistics.sh
+├── scripts/
+│   └── phases/
+│       ├── run_phase35_crypto20_guided.ps1
+│       ├── run_phase35_crypto20_guided.sh
+│       ├── run_phase36_crypto20_alpha.ps1
+│       ├── run_phase36_crypto20_alpha.sh
+│       ├── run_phase37_crypto20_statistics.ps1
+│       └── ...
 ├── reports/
 │   ├── adaptive_alpha_lab_report.md
 │   ├── related_work.md
@@ -824,13 +826,13 @@ The result is weaker-but-consistent relative to the BTC/ETH pilot. Crypto-20 `hm
 Full command:
 
 ```powershell
-.\run_phase35_crypto20_guided.ps1
+.\scripts\phases\run_phase35_crypto20_guided.ps1
 ```
 
 For a short smoke/prototype run, use:
 
 ```powershell
-.\run_phase35_crypto20_guided.ps1 -Epochs 1 -MaxWindows 5000 -TrainOnly
+.\scripts\phases\run_phase35_crypto20_guided.ps1 -Epochs 1 -MaxWindows 5000 -TrainOnly
 ```
 
 ## Phase 36 Crypto-20 Downstream Alpha Retest
@@ -855,13 +857,13 @@ The paper-safe interpretation is: structural transfer from Phase 35 partially tr
 Full command:
 
 ```powershell
-.\run_phase36_crypto20_alpha.ps1
+.\scripts\phases\run_phase36_crypto20_alpha.ps1
 ```
 
 For a quick smoke check:
 
 ```powershell
-.\run_phase36_crypto20_alpha.ps1 -MaxFolds 1
+.\scripts\phases\run_phase36_crypto20_alpha.ps1 -MaxFolds 1
 ```
 
 ## Phase 37 Crypto-20 Statistical Adjudication
@@ -873,7 +875,7 @@ The result does not support a broad superiority claim. Guided-HMM has the highes
 The secondary asset view is mildly encouraging but not decisive. Guided-HMM improves IC over global LightGBM in 13 of 20 assets with an average difference of `+0.00521`, but crypto assets are correlated and the sign test is not significant. The honest conclusion is structural transfer plus weak directional ranking evidence, not statistically proven multi-asset alpha dominance.
 
 ```powershell
-.\run_phase37_crypto20_statistics.ps1
+.\scripts\phases\run_phase37_crypto20_statistics.ps1
 ```
 
 ## Phase 38 Research-Control Reset
@@ -900,8 +902,8 @@ The original full artifact covers 16 folds and equal method coverage but is inva
 
 ```powershell
 .\env\Scripts\python.exe -m unittest discover -s tests -p test_*.py -v
-.\run_phase39_fold_local_encoder.ps1 -Epochs 1 -BatchSize 128 -MaxWindows 5000 -MaxFolds 1 -RunName phase39_resume_smoke
-.\run_phase39_fold_local_encoder.ps1 -Epochs 1 -BatchSize 128 -MaxWindows 5000 -MaxFolds 1 -RunName phase39_resume_smoke -Resume
+.\scripts\phases\run_phase39_fold_local_encoder.ps1 -Epochs 1 -BatchSize 128 -MaxWindows 5000 -MaxFolds 1 -RunName phase39_resume_smoke
+.\scripts\phases\run_phase39_fold_local_encoder.ps1 -Epochs 1 -BatchSize 128 -MaxWindows 5000 -MaxFolds 1 -RunName phase39_resume_smoke -Resume
 ```
 
 The repaired development protocol uses 16 folds, up to 30 epochs with inner-validation early stopping, batch size 128, seed 42, and a pre-frozen 5,000-window encoder budget. Training is additionally bound to `crypto20-development-v1`; it stops on changed code, data, configuration, asset order, folds, freeze hash, or checkpoint hash. The repaired full run found weak/inconclusive downstream alpha rather than a positive trading result.
@@ -1158,9 +1160,40 @@ Core artifacts:
 - `models/phase47_anonymity_source_audit.csv`
 - `models/phase47_reference_manifest.csv`
 
+## Phase 48 Review-Ready Paper Polish
+
+Phase 48 turns the compiled Phase 47 draft into a cleaner review-ready manuscript package. It is not a model-rescue phase and does not tune models, change labels, select a new candidate, rerun the locked holdout, or reinterpret locked/final evaluation data.
+
+Phase 48 adds:
+
+- a polished anonymous ACM manuscript source;
+- a dedicated Phase 48 BibTeX file;
+- a locally compiled review PDF;
+- a claim-traceability audit that allows only limited locked relative support;
+- a paper-quality audit for anonymity, locked-holdout boundaries, candidate-switching boundaries, and negative-result framing;
+- a LaTeX/PDF warning audit and warning-resolution checklist;
+- a reviewer reading guide for allowed and blocked claims.
+
+The Phase 48 status is intentionally conservative:
+
+> The review-ready manuscript package exists and compiles locally, but it is not a submitted paper. The allowed scientific claim remains limited locked relative IC/Sharpe support plus validation-repair discipline. Profitable-alpha, deployment, candidate-switching, and same-holdout rescue claims remain blocked.
+
+Core artifacts:
+
+- `paper/phase48_review_ready_manuscript.tex`
+- `paper/phase48_references.bib`
+- `paper/phase48_review_ready_manuscript.pdf`
+- `reports/phase48_paper_polish_report.md`
+- `reports/phase48_reviewer_reading_guide.md`
+- `reports/phase48_latex_warning_resolution.md`
+- `models/phase48_paper_quality_audit.csv`
+- `models/phase48_claim_traceability.csv`
+- `models/phase48_latex_warning_audit.csv`
+- `models/phase48_section_budget.csv`
+
 ## Current Status
 
-The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. Phase 46 marks the repository evidence package research-complete and creates the final paper-formatting, anonymity, reviewer-response, and submission-gate package. Phase 47 converts that package into a build-oriented anonymous LaTeX draft, references file, compiled PDF, source anonymity audit, table/figure manifests, and submission gap list. It remains not ready for blind external submission until the current venue template is verified, LaTeX/BibTeX warnings are reviewed, figures/citations are finalized, PDF/metadata anonymity is audited, and the artifact archive/DOI decision is complete. The research-grade regression gate passes.
+The original Phase 39 result table is retained for audit history but is not scientific evidence because its per-symbol positional folds overlapped in calendar time. The repaired calendar-aligned classical and neural/guided benchmarks are complete, all methods have equal coverage, and the repaired Phase 40 statistical adjudication is complete. Phase 41/41B has registered bounded candidates and run the global/classical calibration plus soft-gating subset; score-threshold execution control remains deferred and is excluded from the final locked candidate. The result remains weak/negative; corrected IC/Sharpe dominance is unsupported. Phase 42 explains the weak result through execution sensitivity, regime-transition behavior, cross-asset fragility, and feature-family target alignment without making a tradability claim. Phase 43A freezes `regime_lgbm_hmm_guided_hmm` as the single final guided-HMM mechanism candidate before any locked-holdout outcome is inspected. Phase 43B registers and freezes a 10-asset external locked holdout, runs the one-shot 18-fold locked evaluation, and adjudicates the result: the frozen guided-HMM candidate satisfies the prewritten relative IC/Sharpe rule versus the two primary references, but negative Sharpe and total return mean no tradable-positive strategy claim is supported. Phase 44 converts this into a paper-ready evidence package, risk register, and updated manuscript draft. Phase 45 converts that story into a venue-ready manuscript package, table/figure plan, venue requirement audit, external research audit, reproducibility appendix, and submission checklist while preserving the same claim boundaries. Phase 46 marks the repository evidence package research-complete and creates the final paper-formatting, anonymity, reviewer-response, and submission-gate package. Phase 47 converts that package into a build-oriented anonymous LaTeX draft, references file, compiled PDF, source anonymity audit, table/figure manifests, and submission gap list. Phase 48 polishes that into a review-ready manuscript package with claim traceability, PDF warning audit, reviewer reading guide, and an explicit no-rescue/no-deployment boundary. It remains not ready for blind external submission until the current venue template is verified, final PDF/metadata anonymity is audited, final citations are reviewed, and the artifact archive/DOI decision is complete. The research-grade regression gate passes.
 
 Use the frozen-universe calendar audit command, not the bare default command:
 

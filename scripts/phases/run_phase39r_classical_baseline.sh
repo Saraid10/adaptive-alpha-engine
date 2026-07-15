@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+cd "${REPO_ROOT}"
+
 MAX_FOLDS="${1:-0}"
 RUN_NAME="${2:-phase39r_classical_full}"
 OUTPUT_DIR="${3:-models}"

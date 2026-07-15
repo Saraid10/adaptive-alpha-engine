@@ -1920,13 +1920,13 @@ def audit_reproducibility_artifacts(rows: list[AuditRecord]) -> None:
             "paper_skeleton.py",
             "archive_run.py",
         ],
-        "run_phase35_crypto20_guided.ps1": [
+        "scripts/phases/run_phase35_crypto20_guided.ps1": [
             "Epochs",
             "BatchSize",
             "crypto20_regime_assignments.csv",
             "crypto20_guided_encoder",
         ],
-        "run_phase35_crypto20_guided.sh": [
+        "scripts/phases/run_phase35_crypto20_guided.sh": [
             "EPOCHS",
             "BATCH_SIZE",
             "crypto20_regime_assignments.csv",
@@ -2377,7 +2377,7 @@ def audit_crypto20_guided_encoder_artifacts(rows: list[AuditRecord]) -> None:
             "crypto20_guided_encoder_artifacts",
             WARN,
             "artifact",
-            "crypto20_guided_encoder_summary.csv is missing; run run_phase35_crypto20_guided.ps1 after Phase 34 readiness passes.",
+            "crypto20_guided_encoder_summary.csv is missing; run scripts/phases/run_phase35_crypto20_guided.ps1 after Phase 34 readiness passes.",
         )
         return
 

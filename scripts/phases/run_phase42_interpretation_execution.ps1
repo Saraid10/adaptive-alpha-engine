@@ -1,6 +1,9 @@
 param(
   [switch]$SkipFeatureDiagnostics
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
 

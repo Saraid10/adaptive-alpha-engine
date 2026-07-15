@@ -1,6 +1,9 @@
 param(
   [switch]$DryRun
 )
+$RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $RepoRoot
+
 
 $ErrorActionPreference = "Stop"
 

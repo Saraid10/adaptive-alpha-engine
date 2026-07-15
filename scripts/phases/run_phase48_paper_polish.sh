@@ -6,4 +6,10 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 cd "${REPO_ROOT}"
 
 PYTHON="${PYTHON:-python}"
-"${PYTHON}" src/phase43_locked_holdout_freeze.py
+ARGS=("src/phase48_paper_polish.py")
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+  ARGS+=("--dry-run")
+fi
+
+"${PYTHON}" "${ARGS[@]}"
